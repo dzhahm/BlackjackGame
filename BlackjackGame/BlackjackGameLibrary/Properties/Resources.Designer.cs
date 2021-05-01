@@ -63,6 +63,12 @@ namespace BlackjackGameLibrary.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;Standard&gt;
+        ///	&lt;CardSuitTypes&gt;
+        ///		&lt;type&gt;Clubs&lt;/type&gt;
+        ///		&lt;type&gt;Diamonds&lt;/type&gt;
+        ///		&lt;type&gt;Hearts&lt;/type&gt;
+        ///		&lt;type&gt;Spades&lt;/type&gt;
+        ///	&lt;/CardSuitTypes&gt;
         ///	&lt;NumberOfCardsInASuit&gt;13&lt;/NumberOfCardsInASuit&gt;
         ///	&lt;NumberOfNumericalCardsInASuit&gt;9&lt;/NumberOfNumericalCardsInASuit&gt;
         ///	&lt;SmallestValueOfNumericalCards&gt;2&lt;/SmallestValueOfNumericalCards&gt;

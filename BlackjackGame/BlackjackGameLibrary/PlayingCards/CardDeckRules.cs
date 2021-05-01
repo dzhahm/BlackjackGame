@@ -1,12 +1,15 @@
-﻿using BlackjackGameLibrary.Properties;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BlackjackGameLibrary.CardDeck
+namespace BlackjackGameLibrary.PlayingCards
 {
   [XmlRoot("Standard")]
   public class CardDeckRules
   {
+    [XmlArray("CardSuitTypes")]
+    [XmlArrayItem("type")]
+    public List<ECardSuitTypes> CardSuits { get; set; }
+
     [XmlElement("NumberOfCardsInASuit")] public int NumberOfCardsInASuit { get; set; }
 
     [XmlElement("NumberOfNumericalCardsInASuit")]

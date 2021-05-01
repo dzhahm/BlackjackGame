@@ -1,6 +1,6 @@
-﻿namespace BlackjackGameLibrary.CardDeck
+﻿namespace BlackjackGameLibrary.PlayingCards
 {
-  public class Card
+  public class Card : ICard
   {
     private readonly int _value;
     private readonly ECardSuitTypes _cardSuitType;
@@ -12,5 +12,9 @@
       _cardSuitType = cardSuitType;
       _cardType = cardType;
     }
+
+    public int Value => _value;
+    public ECardType CardType => _cardType;
+    public ECardSuitTypes CardSuit => _cardSuitType;
   }
 }

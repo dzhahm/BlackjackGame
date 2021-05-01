@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0"?>
 <Standard>
+	<CardSuitTypes>
+		<type>Clubs</type>
+		<type>Diamonds</type>
+		<type>Hearts</type>
+		<type>Spades</type>
+	</CardSuitTypes>
 	<NumberOfCardsInASuit>13</NumberOfCardsInASuit>
 	<NumberOfNumericalCardsInASuit>9</NumberOfNumericalCardsInASuit>
 	<SmallestValueOfNumericalCards>2</SmallestValueOfNumericalCards>

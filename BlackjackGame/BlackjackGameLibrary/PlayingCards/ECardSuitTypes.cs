@@ -1,4 +1,4 @@
-﻿namespace BlackjackGameLibrary.CardDeck
+﻿namespace BlackjackGameLibrary.PlayingCards
 {
   public enum ECardSuitTypes
   {
