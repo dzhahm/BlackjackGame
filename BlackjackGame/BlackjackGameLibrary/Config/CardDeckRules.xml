@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0"?>
-<CardDeckRules>
-	<Standard>
-		<NumberOfCardsInASuit>13</NumberOfCardsInASuit>
-		<NumberOfNumericalCardsInASuit>9</NumberOfNumericalCardsInASuit>
-		<SmallestValueOfNumericalCards>2</SmallestValueOfNumericalCards>
-		<FaceCardValue>10</FaceCardValue>
-		<DefaultAceValue>10</DefaultAceValue>
-	</Standard>
-</CardDeckRules>
+<Standard>
+	<NumberOfCardsInASuit>13</NumberOfCardsInASuit>
+	<NumberOfNumericalCardsInASuit>9</NumberOfNumericalCardsInASuit>
+	<SmallestValueOfNumericalCards>2</SmallestValueOfNumericalCards>
+	<FaceCardValue>10</FaceCardValue>
+	<DefaultAceValue>10</DefaultAceValue>
+</Standard>
