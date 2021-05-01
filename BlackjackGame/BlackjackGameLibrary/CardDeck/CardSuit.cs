@@ -6,12 +6,13 @@ namespace BlackjackGameLibrary.CardDeck
   {
     private readonly List<Card> _cards;
     private readonly ECardSuitTypes _suitType;
-    private readonly CardDeckRules _cardDeckRules = new();
+    private readonly CardDeckRules _cardDeckRules;
 
     public CardSuit(ECardSuitTypes suitType)
     {
       _suitType = suitType;
       _cards = new List<Card>(_cardDeckRules.NumberOfCardsInASuit);
+      _cardDeckRules = new CardDeckRulesProvider().GetRules();
       CreateSuit();
     }
 

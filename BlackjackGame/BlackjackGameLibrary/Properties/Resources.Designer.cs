@@ -61,19 +61,15 @@ namespace BlackjackGameLibrary.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;CardDeckRules&gt;
-        ///	&lt;Standard&gt;
-        ///		&lt;Deck&gt;
-        ///			&lt;Suit&gt;
-        ///				&lt;NumberOfCardsInASuit&gt;13&lt;/NumberOfCardsInASuit&gt;
-        ///				&lt;NumberOfNumericalCardsInASuit&gt;9&lt;/NumberOfNumericalCardsInASuit&gt;
-        ///				&lt;SmallestValueOfNumericalCards&gt;2&lt;/SmallestValueOfNumericalCards&gt;
-        ///				&lt;FaceCardValue&gt;10&lt;/FaceCardValue&gt;
-        ///				&lt;DefaultAceValue&gt;10&lt;/DefaultAceValue&gt;
-        ///			&lt;/Suit&gt;
-        ///		&lt;/Deck&gt;
-        ///	&lt;/Standard&gt;
-        ///&lt;/CardDeckRules&gt;.
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;Standard&gt;
+        ///	&lt;NumberOfCardsInASuit&gt;13&lt;/NumberOfCardsInASuit&gt;
+        ///	&lt;NumberOfNumericalCardsInASuit&gt;9&lt;/NumberOfNumericalCardsInASuit&gt;
+        ///	&lt;SmallestValueOfNumericalCards&gt;2&lt;/SmallestValueOfNumericalCards&gt;
+        ///	&lt;FaceCardValue&gt;10&lt;/FaceCardValue&gt;
+        ///	&lt;DefaultAceValue&gt;10&lt;/DefaultAceValue&gt;
+        ///&lt;/Standard&gt;
+        ///.
         /// </summary>
         internal static string CardDeckRules {
             get {
