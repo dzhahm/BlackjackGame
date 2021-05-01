@@ -1,11 +1,36 @@
+using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BlackjackGameLibrary.CardDeck;
+using System.Linq;
 
 namespace BlackjackGameLibrary.UnitTests
 {
   [TestClass]
   public class CardDeckRulesDeserialization
   {
+    [TestMethod]
+    public void CardSuitTypesIsCorrectlyDeserialized()
+    {
+      //Arrange
+      CardDeckRules rules;
+      ECardSuitTypes[] cardSuitTypes =
+      {
+        ECardSuitTypes.Clubs,
+        ECardSuitTypes.Diamonds,
+        ECardSuitTypes.Hearts,
+        ECardSuitTypes.Spades
+      };
+
+      //Act
+      rules = new CardDeckRulesProvider().GetRules();
+
+      //Assert
+      if (rules.CardSuits.Count != cardSuitTypes.Length && !cardSuitTypes.All(t => rules.CardSuits.Contains(t)))
+      {
+        string errorMessage = "Expected card suit types could not ne acquired from the configuration file!";
+        Assert.Fail(errorMessage);
+      }
+    }
+
     [TestMethod]
     public void StandardNumberOfCardsInASuitIsCorrectlyDeserialized()
     {
@@ -21,7 +46,7 @@ namespace BlackjackGameLibrary.UnitTests
       if (rules.NumberOfCardsInASuit != numberOfCardsInASuit)
       {
         string errorMessage = $"The value acquired for the number of cards in a suit is wrong! Excepted value is: {numberOfCardsInASuit}. Acquired value is: {rules.NumberOfCardsInASuit}";
-        Assert.Fail("");
+        Assert.Fail(errorMessage);
       }
     }
 
