@@ -16,5 +16,25 @@
     public int Value => _value;
     public ECardType CardType => _cardType;
     public ECardSuitTypes CardSuit => _cardSuitType;
+
+    public bool IsEqual(ICard card)
+    {
+      if (card.CardSuit != CardSuit)
+      {
+        return false;
+      }
+
+      if (card.CardType != CardType)
+      {
+        return false;
+      }
+
+      if (card.Value != Value)
+      {
+        return false;
+      }
+
+      return true;
+    }
   }
 }
