@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BlackjackGameLibrary.UnitTests
+namespace BlackjackGameLibrary.UnitTests.PlayingCards
 {
   [TestClass]
   public class CardDeckGeneration
