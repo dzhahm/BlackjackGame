@@ -14,6 +14,8 @@ namespace BlackjackGameLibrary.Game
 
     Dictionary<string, string> PlayerNames { get; }
 
+    IBlackjackGameRound ActualGameRound { get; }
+
     List<IBlackjackGameRound> Rounds { get; }
 
     void ShuffleCards();
