@@ -1,4 +1,4 @@
-﻿using BlackjackGameLibrary.Game.GameRound;
+﻿using BlackjackGameLibrary.Game.Round;
 using BlackjackGameLibrary.PlayingCards;
 using System.Collections.Generic;
 

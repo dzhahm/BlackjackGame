@@ -1,18 +1,17 @@
-﻿using BlackjackGameLibrary.Tools;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace BlackjackGameLibrary.PlayingCards
 {
-  public class CardDeck : ICardDeck
+  public class CardDeck : GroupOfCards, ICardDeck
   {
-    private CardDeckRules _cardDeckRules;
+    private readonly CardDeckConfiguration _cardDeckConfiguration;
     private ImmutableList<CardSuit> _cardSuits;
-    private List<Card> _cards;
+    public ImmutableList<Card> Cards => _cards.ToImmutableList();
 
     public CardDeck()
     {
-      _cardDeckRules = new CardDeckRulesProvider().GetRules();
+      _cardDeckConfiguration = new CardDeckConfigurationProvider().GetRules();
       AddCardSuits();
       AddCards();
     }
@@ -20,7 +19,7 @@ namespace BlackjackGameLibrary.PlayingCards
     private void AddCardSuits()
     {
       List<CardSuit> cardSuits = new List<CardSuit>();
-      foreach (ECardSuitTypes cardSuitType in _cardDeckRules.CardSuits)
+      foreach (ECardSuitTypes cardSuitType in _cardDeckConfiguration.CardSuits)
       {
         CardSuit cardSuit = new CardSuit(cardSuitType);
         cardSuits.Add(cardSuit);
@@ -36,13 +35,6 @@ namespace BlackjackGameLibrary.PlayingCards
       {
         _cards.AddRange(cardSuit.Cards);
       }
-    }
-
-    public ImmutableList<Card> Cards => _cards.ToImmutableList();
-
-    public void Shuffle()
-    {
-      new ShuffleAlgorithm().Shuffle(1, ref _cards);
     }
   }
 }

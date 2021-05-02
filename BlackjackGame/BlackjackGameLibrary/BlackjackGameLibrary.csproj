@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Config\CardDeckRules.xml" />
+    <None Remove="Config\CardDeckConfiguration.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Config\CardDeckRules.xml">
+    <EmbeddedResource Include="Config\CardDeckConfiguration.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BlackjackGameLibrary.Game.GameRound
+namespace BlackjackGameLibrary.Game.Round
 {
   public class BlackjackGameRound : IBlackjackGameRound
   {
     private readonly int _numberOfPlayers;
     private readonly List<Card> _cards;
-    private CardDuringGame _dealersFirstCard;
-    private CardDuringGame _dealersSecondCard;
-    public CardDuringGame DealersFirstCard => _dealersFirstCard;
-    public CardDuringGame DealersSecondCard => _dealersSecondCard;
+    private PlayedCard _dealersFirstPlayedCard;
+    private PlayedCard _dealersSecondPlayedCard;
+    public PlayedCard DealersFirstPlayedCard => _dealersFirstPlayedCard;
+    public PlayedCard DealersSecondPlayedCard => _dealersSecondPlayedCard;
     public ERoundResult Result { get; }
 
     private Dictionary<EPlayers, List<Card>> _playerCards;
@@ -34,12 +34,12 @@ namespace BlackjackGameLibrary.Game.GameRound
     public void DealCards()
     {
       //First deal round
-      _dealersFirstCard = new CardDuringGame(_cards.First(), true);
+      _dealersFirstPlayedCard = new PlayedCard(_cards.First(), true);
       _cards.RemoveAt(0);
       DealForAllPlayers();
 
       //Second deal round
-      _dealersSecondCard = new CardDuringGame(_cards.First(), true);
+      _dealersSecondPlayedCard = new PlayedCard(_cards.First(), true);
       _cards.RemoveAt(0);
       DealForAllPlayers();
       SumCardValuesOfAllPlayers();
@@ -107,19 +107,19 @@ namespace BlackjackGameLibrary.Game.GameRound
 
       if (_numberOfPlayers > 0)
       {
-        _playerCards[EPlayers.Player1].Add(new CardDuringGame(_cards.First(), true));
+        _playerCards[EPlayers.Player1].Add(new PlayedCard(_cards.First(), true));
         _cards.RemoveAt(0);
       }
 
       if (_numberOfPlayers > 1)
       {
-        _playerCards[EPlayers.Player2].Add(new CardDuringGame(_cards.First(), true));
+        _playerCards[EPlayers.Player2].Add(new PlayedCard(_cards.First(), true));
         _cards.RemoveAt(0);
       }
 
       if (_numberOfPlayers > 2)
       {
-        _playerCards[EPlayers.Player3].Add(new CardDuringGame(_cards.First(), true));
+        _playerCards[EPlayers.Player3].Add(new PlayedCard(_cards.First(), true));
         _cards.RemoveAt(0);
       }
     }

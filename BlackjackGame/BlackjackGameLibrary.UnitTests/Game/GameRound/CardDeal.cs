@@ -1,5 +1,5 @@
 ﻿using BlackjackGameLibrary.Game;
-using BlackjackGameLibrary.Game.GameRound;
+using BlackjackGameLibrary.Game.Round;
 using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       gameRound.DealCards();
 
       //Assert
-      if (gameRound.DealersFirstCard.Value == 0 || gameRound.DealersSecondCard.Value == 0)
+      if (gameRound.DealersFirstPlayedCard.Value == 0 || gameRound.DealersSecondPlayedCard.Value == 0)
       {
         string errorMessage = $"Dealer should have 2 cards after the deal round, but it doesn't!";
         Assert.Fail(errorMessage);

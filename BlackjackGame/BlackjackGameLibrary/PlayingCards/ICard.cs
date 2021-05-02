@@ -8,5 +8,7 @@
     ECardSuitTypes CardSuit { get; }
 
     bool IsEqual(ICard card);
+
+    Card Clone();
   }
 }

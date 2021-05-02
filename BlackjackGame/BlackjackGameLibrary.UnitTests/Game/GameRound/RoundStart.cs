@@ -1,5 +1,5 @@
 ﻿using BlackjackGameLibrary.Game;
-using BlackjackGameLibrary.Game.GameRound;
+using BlackjackGameLibrary.Game.Round;
 using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
