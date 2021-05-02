@@ -47,14 +47,25 @@ namespace BlackjackGameLibrary.Game.Round
 
     public void GivePlayerAdditionalCard(EPlayers player)
     {
-      throw new NotImplementedException();
+      _playerCards[player].Add(_cards.First());
+      _cards.RemoveAt(0);
     }
 
     public void UpdatePlayersCall(EPlayers player, ERoundCalls call)
     {
-      throw new NotImplementedException();
+      _playerCalls[player] = call;
+      switch (call)
+      {
+        case ERoundCalls.Hit:
+          GivePlayerAdditionalCard(player);
+          break;
+        case ERoundCalls.Stand:
+          _playersSumOfCards[player] = SumCardValues(PlayerCards[player]);
+          break;
+        default:
+          return;
+      }
     }
-
 
     private void InitRound()
     {
