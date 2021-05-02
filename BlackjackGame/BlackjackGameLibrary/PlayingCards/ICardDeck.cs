@@ -4,7 +4,7 @@ namespace BlackjackGameLibrary.PlayingCards
 {
   public interface ICardDeck
   {
-    IImmutableList<Card> Cards { get; }
+    ImmutableList<Card> Cards { get; }
     void Shuffle();
   }
 }
