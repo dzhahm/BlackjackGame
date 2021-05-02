@@ -12,9 +12,9 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void CardDeckHasCorrectNumberOfCards()
     {
       //Arrange
-      CardDeckRules rules = new CardDeckRulesProvider().GetRules();
+      CardDeckConfiguration configuration = new CardDeckConfigurationProvider().GetRules();
       //by default it is 13x4 = 52
-      int numberOfExpectedCards = rules.NumberOfCardsInASuit * rules.CardSuits.Count;
+      int numberOfExpectedCards = configuration.NumberOfCardsInASuit * configuration.CardSuits.Count;
       ICardDeck cardDeck;
 
       //Act
@@ -32,9 +32,9 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void CardDeckHasCorrectSuits()
     {
       //Arrange
-      CardDeckRules rules = new CardDeckRulesProvider().GetRules();
+      CardDeckConfiguration configuration = new CardDeckConfigurationProvider().GetRules();
       //by default four suits: Clubs, Diamonds, Hearts, Spades
-      List<ECardSuitTypes> expectedCardSuits = rules.CardSuits;
+      List<ECardSuitTypes> expectedCardSuits = configuration.CardSuits;
       ICardDeck cardDeck;
 
       //Act

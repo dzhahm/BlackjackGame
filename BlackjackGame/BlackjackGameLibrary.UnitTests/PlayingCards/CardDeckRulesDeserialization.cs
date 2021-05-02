@@ -11,7 +11,7 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void CardSuitTypesIsCorrectlyDeserialized()
     {
       //Arrange
-      CardDeckRules rules;
+      CardDeckConfiguration configuration;
       ECardSuitTypes[] cardSuitTypes =
       {
         ECardSuitTypes.Clubs,
@@ -21,10 +21,10 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
       };
 
       //Act
-      rules = new CardDeckRulesProvider().GetRules();
+      configuration = new CardDeckConfigurationProvider().GetRules();
 
       //Assert
-      if (rules.CardSuits.Count != cardSuitTypes.Length && !cardSuitTypes.All(t => rules.CardSuits.Contains(t)))
+      if (configuration.CardSuits.Count != cardSuitTypes.Length && !cardSuitTypes.All(t => configuration.CardSuits.Contains(t)))
       {
         string errorMessage = "Expected card suit types could not ne acquired from the configuration file!";
         Assert.Fail(errorMessage);
@@ -35,17 +35,17 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void StandardNumberOfCardsInASuitIsCorrectlyDeserialized()
     {
       //Arrange
-      CardDeckRules rules;
+      CardDeckConfiguration configuration;
       int numberOfCardsInASuit = 13;
 
       //Act
-      rules = new CardDeckRulesProvider().GetRules();
+      configuration = new CardDeckConfigurationProvider().GetRules();
 
       //Assert
 
-      if (rules.NumberOfCardsInASuit != numberOfCardsInASuit)
+      if (configuration.NumberOfCardsInASuit != numberOfCardsInASuit)
       {
-        string errorMessage = $"The value acquired for the number of cards in a suit is wrong! Excepted value is: {numberOfCardsInASuit}. Acquired value is: {rules.NumberOfCardsInASuit}";
+        string errorMessage = $"The value acquired for the number of cards in a suit is wrong! Excepted value is: {numberOfCardsInASuit}. Acquired value is: {configuration.NumberOfCardsInASuit}";
         Assert.Fail(errorMessage);
       }
     }
@@ -54,17 +54,17 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void StandardNumberOfNumericalCardsInASuitIsCorrectlyDeserialized()
     {
       //Arrange
-      CardDeckRules rules;
+      CardDeckConfiguration configuration;
       int numberOfNumericalCardsInASuit = 9;
 
       //Act
-      rules = new CardDeckRulesProvider().GetRules();
+      configuration = new CardDeckConfigurationProvider().GetRules();
 
       //Assert
-      if (rules.NumberOfNumericalCardsInASuit != numberOfNumericalCardsInASuit)
+      if (configuration.NumberOfNumericalCardsInASuit != numberOfNumericalCardsInASuit)
       {
         string errorMessage =
-          $"The value acquired for the number of numerical cards in a suit is wrong! Excepted value is: {numberOfNumericalCardsInASuit}. Acquired value is: {rules.NumberOfNumericalCardsInASuit}";
+          $"The value acquired for the number of numerical cards in a suit is wrong! Excepted value is: {numberOfNumericalCardsInASuit}. Acquired value is: {configuration.NumberOfNumericalCardsInASuit}";
         Assert.Fail(errorMessage);
       }
     }
@@ -73,17 +73,17 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void StandardSmallestValueOfNumericalCardsIsCorrectlyDeserialized()
     {
       //Arrange
-      CardDeckRules rules;
+      CardDeckConfiguration configuration;
       int smallestValueOfNumericalCards = 2;
 
       //Act
-      rules = new CardDeckRulesProvider().GetRules();
+      configuration = new CardDeckConfigurationProvider().GetRules();
 
       //Assert
-      if (rules.SmallestValueOfNumericalCards != smallestValueOfNumericalCards)
+      if (configuration.SmallestValueOfNumericalCards != smallestValueOfNumericalCards)
       {
         string errorMessage =
-          $"The value acquired for the smallest value of numerical cards is wrong! Excepted value is: {smallestValueOfNumericalCards}. Acquired value is: {rules.SmallestValueOfNumericalCards}";
+          $"The value acquired for the smallest value of numerical cards is wrong! Excepted value is: {smallestValueOfNumericalCards}. Acquired value is: {configuration.SmallestValueOfNumericalCards}";
         Assert.Fail(errorMessage);
       }
     }
@@ -92,16 +92,16 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void StandardFaceCardValueIsCorrectlyDeserialized()
     {
       //Arrange
-      CardDeckRules rules;
+      CardDeckConfiguration configuration;
       int faceCardValue = 10;
 
       //Act
-      rules = new CardDeckRulesProvider().GetRules();
+      configuration = new CardDeckConfigurationProvider().GetRules();
 
       //Assert
-      if (rules.FaceCardValue != faceCardValue)
+      if (configuration.FaceCardValue != faceCardValue)
       {
-        string errorMessage = $"The value acquired for the face card value is wrong! Excepted value is: {faceCardValue}. Acquired value is: {rules.FaceCardValue}";
+        string errorMessage = $"The value acquired for the face card value is wrong! Excepted value is: {faceCardValue}. Acquired value is: {configuration.FaceCardValue}";
         Assert.Fail(errorMessage);
       }
     }
@@ -110,16 +110,16 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     public void StandardDefaultAceValueIsCorrectlyDeserialized()
     {
       //Arrange
-      CardDeckRules rules;
+      CardDeckConfiguration configuration;
       int defaultAceValue = 10;
 
       //Act
-      rules = new CardDeckRulesProvider().GetRules();
+      configuration = new CardDeckConfigurationProvider().GetRules();
 
       //Assert
-      if (rules.DefaultAceValue != defaultAceValue)
+      if (configuration.DefaultAceValue != defaultAceValue)
       {
-        string errorMessage = $"The value acquired for the default ace value is wrong! Excepted value is: {defaultAceValue}. Acquired value is: {rules.DefaultAceValue}";
+        string errorMessage = $"The value acquired for the default ace value is wrong! Excepted value is: {defaultAceValue}. Acquired value is: {configuration.DefaultAceValue}";
         Assert.Fail(errorMessage);
       }
     }

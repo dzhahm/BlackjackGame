@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace BlackjackGameLibrary.PlayingCards
 {
   [XmlRoot("Standard")]
-  public class CardDeckRules
+  public class CardDeckConfiguration
   {
     [XmlArray("CardSuitTypes")]
     [XmlArrayItem("type")]

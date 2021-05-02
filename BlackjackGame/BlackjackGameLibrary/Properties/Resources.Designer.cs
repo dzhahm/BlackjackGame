@@ -77,9 +77,9 @@ namespace BlackjackGameLibrary.Properties {
         ///&lt;/Standard&gt;
         ///.
         /// </summary>
-        internal static string CardDeckRules {
+        internal static string CardDeckConfiguration {
             get {
-                return ResourceManager.GetString("CardDeckRules", resourceCulture);
+                return ResourceManager.GetString("CardDeckConfiguration", resourceCulture);
             }
         }
     }

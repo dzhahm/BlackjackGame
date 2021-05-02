@@ -1,4 +1,4 @@
-﻿using BlackjackGameLibrary.Game.GameRound;
+﻿using BlackjackGameLibrary.Game.Round;
 using BlackjackGameLibrary.PlayingCards;
 using BlackjackGameLibrary.Tools;
 using System;
@@ -27,12 +27,7 @@ namespace BlackjackGameLibrary.Game
 
     private void CreatePlayingCards()
     {
-      for (int i = 0; i < _numberOfCardDecks; i++)
-      {
-        CardDeck deck = new CardDeck();
-        _playingCards.AddRange(deck.Cards);
-      }
-
+      _playingCards = new List<Card>(new MultipleCardDecks(_numberOfCardDecks).Cards);
       ShuffleCards();
     }
 
@@ -41,7 +36,7 @@ namespace BlackjackGameLibrary.Game
     /// </summary>
     public void ShuffleCards()
     {
-      new ShuffleAlgorithm().Shuffle(_numberOfCardDecks, ref _playingCards);
+      new ShuffleAlgorithm().Shuffle(ref _playingCards);
     }
 
 

@@ -36,5 +36,11 @@
 
       return true;
     }
+
+    public Card Clone()
+    {
+      Card tempCard = new Card(_value, _cardSuitType, _cardType);
+      return tempCard;
+    }
   }
 }
