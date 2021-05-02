@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BlackjackGameLibrary.Tools;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace BlackjackGameLibrary.PlayingCards
@@ -37,11 +38,11 @@ namespace BlackjackGameLibrary.PlayingCards
       }
     }
 
-    public IImmutableList<Card> Cards => _cards.ToImmutableList();
+    public ImmutableList<Card> Cards => _cards.ToImmutableList();
 
     public void Shuffle()
     {
-      throw new System.NotImplementedException();
+      new ShuffleAlgorithm().Shuffle(1, ref _cards);
     }
   }
 }

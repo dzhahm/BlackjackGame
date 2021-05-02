@@ -1,4 +1,5 @@
-﻿using BlackjackGameLibrary.PlayingCards;
+﻿using BlackjackGameLibrary.Game.GameRound;
+using BlackjackGameLibrary.PlayingCards;
 using System.Collections.Generic;
 
 namespace BlackjackGameLibrary.Game
