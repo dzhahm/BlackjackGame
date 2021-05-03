@@ -1,6 +1,7 @@
 ﻿using BlackjackGameLibrary.PlayingCards;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace BlackjackGameLibrary.Game.Round
@@ -11,15 +12,21 @@ namespace BlackjackGameLibrary.Game.Round
     private readonly List<Card> _cards;
     private PlayedCard _dealersFirstPlayedCard;
     private PlayedCard _dealersSecondPlayedCard;
+
+    private ERoundState _roundState;
+    public ERoundState RoundState { get; }
+
     public PlayedCard DealersFirstPlayedCard => _dealersFirstPlayedCard;
     public PlayedCard DealersSecondPlayedCard => _dealersSecondPlayedCard;
-    public ERoundResult Result { get; }
+
+    private Dictionary<EPlayers, ERoundResult> _playerResults;
+    public ImmutableDictionary<EPlayers, ERoundResult> PlayerResults => _playerResults.ToImmutableDictionary();
 
     private Dictionary<EPlayers, List<Card>> _playerCards;
-    public Dictionary<EPlayers, List<Card>> PlayerCards => _playerCards;
+    public ImmutableDictionary<EPlayers, List<Card>> PlayerCards => _playerCards.ToImmutableDictionary();
 
     private Dictionary<EPlayers, ERoundCalls> _playerCalls;
-    public Dictionary<EPlayers, ERoundCalls> PlayerCalls => _playerCalls;
+    public ImmutableDictionary<EPlayers, ERoundCalls> PlayerCalls => _playerCalls.ToImmutableDictionary();
 
     private Dictionary<EPlayers, int> _playersSumOfCards;
     public Dictionary<EPlayers, int> PlayersSumOfCards => _playersSumOfCards;
@@ -72,6 +79,7 @@ namespace BlackjackGameLibrary.Game.Round
       _playerCalls = new Dictionary<EPlayers, ERoundCalls>();
       _playerCards = new Dictionary<EPlayers, List<Card>>();
       _playersSumOfCards = new Dictionary<EPlayers, int>();
+      _playerResults = new Dictionary<EPlayers, ERoundResult>();
       if (_numberOfPlayers <= 0)
       {
         return;
@@ -102,6 +110,9 @@ namespace BlackjackGameLibrary.Game.Round
         _playerCards.Add(EPlayers.Player3, new List<Card>());
         _playersSumOfCards.Add(EPlayers.Player3, 0);
       }
+
+      _playerCards.Add(EPlayers.Dealer, new List<Card>());
+      _playersSumOfCards.Add(EPlayers.Dealer, 0);
     }
 
     private void DealForAllPlayers()
@@ -135,9 +146,64 @@ namespace BlackjackGameLibrary.Game.Round
       }
     }
 
-    public void FindTheWinner()
+    public void OpenDealersSecondCard()
     {
-      throw new NotImplementedException();
+      if (_roundState == ERoundState.AllPlayersStand)
+      {
+        _playerCards[EPlayers.Dealer].Add(_dealersFirstPlayedCard);
+        _playerCards[EPlayers.Dealer].Add(_dealersSecondPlayedCard);
+        _playersSumOfCards[EPlayers.Dealer] = SumCardValues(_playerCards[EPlayers.Dealer]);
+      }
+      else
+      {
+      }
+    }
+
+    public void FinalizeRoundResults()
+    {
+      if (_roundState == ERoundState.DealersSecondCardIsOpen)
+      {
+        int dealerCardsSum = _playersSumOfCards[EPlayers.Dealer];
+        foreach (KeyValuePair<EPlayers, int> playerCardsSum in _playersSumOfCards.Where(p => p.Key != EPlayers.Dealer))
+        {
+          if (playerCardsSum.Value > 21)
+          {
+            _playerResults[playerCardsSum.Key] = ERoundResult.DealerWins;
+          }
+
+          if (playerCardsSum.Value == 21)
+          {
+            if (dealerCardsSum == 21)
+            {
+              _playerResults[playerCardsSum.Key] = ERoundResult.Push;
+              return;
+            }
+
+            _playerResults[playerCardsSum.Key] = ERoundResult.PlayerWins;
+          }
+
+          if (playerCardsSum.Value < 21)
+          {
+            if (dealerCardsSum > playerCardsSum.Value)
+            {
+              _playerResults[playerCardsSum.Key] = ERoundResult.DealerWins;
+              return;
+            }
+
+            if (dealerCardsSum == playerCardsSum.Value)
+            {
+              _playerResults[playerCardsSum.Key] = ERoundResult.Push;
+              return;
+            }
+
+            if (dealerCardsSum < playerCardsSum.Value)
+            {
+              _playerResults[playerCardsSum.Key] = ERoundResult.PlayerWins;
+              return;
+            }
+          }
+        }
+      }
     }
 
     private void SumCardValuesOfAllPlayers()
