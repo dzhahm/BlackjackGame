@@ -20,7 +20,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     }
 
     [TestMethod]
-    public void DealerGetsTwoCards()
+    public void DealerGetsTwoCardsInTheDealRound()
     {
       //Arrange
       IBlackjackGameRound gameRound;
@@ -38,7 +38,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     }
 
     [TestMethod]
-    public void PlayerGetsTwoCardsByDefault()
+    public void PlayerGetsTwoCardsInTheDealRound()
     {
       //Arrange
       IBlackjackGameRound gameRound;
