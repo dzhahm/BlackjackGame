@@ -1,11 +1,10 @@
-﻿namespace BlackjackGameLibrary.Game.Round
+﻿namespace BlackjackGameLibrary.Game.Round.Enums
 {
   public enum ERoundState
   {
     None,
     Initialized,
-    FirstCardDeal,
-    SecondCardDeal,
+    CardDeal,
     WaitForCalls,
     AllPlayersStand,
     DealersSecondCardIsOpen,

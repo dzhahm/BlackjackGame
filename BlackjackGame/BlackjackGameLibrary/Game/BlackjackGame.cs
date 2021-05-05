@@ -48,7 +48,7 @@ namespace BlackjackGameLibrary.Game
         Rounds.Add(_actualGameRound);
       }
 
-      _actualGameRound = new BlackjackGameRound(ref _playingCards, _numberOfPlayers);
+      _actualGameRound = new BlackjackGameRound(_playingCards, _numberOfPlayers);
     }
   }
 }

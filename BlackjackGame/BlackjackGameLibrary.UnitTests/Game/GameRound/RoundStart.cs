@@ -1,5 +1,6 @@
 ﻿using BlackjackGameLibrary.Game;
 using BlackjackGameLibrary.Game.Round;
+using BlackjackGameLibrary.Game.Round.Enums;
 using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       IBlackjackGameRound gameRound;
 
       //Act
-      gameRound = new BlackjackGameRound(ref _cards, _numberOfPlayers);
+      gameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
       int playerOneCards = gameRound.PlayerCards[EPlayers.Player1].Count;
       int playerTwoCards = gameRound.PlayerCards[EPlayers.Player2].Count;
       int playerThreeCards = gameRound.PlayerCards[EPlayers.Player3].Count;
@@ -48,7 +49,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       IBlackjackGameRound gameRound;
 
       //Act
-      gameRound = new BlackjackGameRound(ref _cards, _numberOfPlayers);
+      gameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
       EPlayerRoundState playerOneCall = gameRound.PlayerRoundStates[EPlayers.Player1];
       EPlayerRoundState playerTwoCall = gameRound.PlayerRoundStates[EPlayers.Player2];
       EPlayerRoundState playerThreeCall = gameRound.PlayerRoundStates[EPlayers.Player3];

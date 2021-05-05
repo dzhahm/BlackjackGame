@@ -1,5 +1,6 @@
 ﻿using BlackjackGameLibrary.Game;
 using BlackjackGameLibrary.Game.Round;
+using BlackjackGameLibrary.Game.Round.Enums;
 using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -22,7 +23,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       _numberOfCardDecks = 6;
       _numberOfPlayers = 3;
       _cards = new List<Card>(new MultipleCardDecks(_numberOfCardDecks).Cards);
-      _blackjackGameRound = new BlackjackGameRound(ref _cards, _numberOfPlayers);
+      _blackjackGameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
       _blackjackGameRound.DealCards();
     }
 
@@ -34,7 +35,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       int numberOfPlayerOneCards = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
 
       //Act
-      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, playerCall);
+      _blackjackGameRound.PlayerCall(EPlayers.Player1, playerCall);
       int numberOfPlayerOneCardsAfterHit = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
 
       //Assert
@@ -55,7 +56,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       int numberOfPlayerOneCards = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
 
       //Act
-      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, playerCall);
+      _blackjackGameRound.PlayerCall(EPlayers.Player1, playerCall);
       int numberOfPlayerOneCardsAfterStand = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
 
       //Assert
@@ -74,12 +75,12 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       //Arrange
       while (_blackjackGameRound.PlayersSumOfCards[EPlayers.Player1] < 21)
       {
-        _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, ERoundCalls.Hit);
+        _blackjackGameRound.PlayerCall(EPlayers.Player1, ERoundCalls.Hit);
       }
 
       //Act
       EPlayerRoundState callStateBeforeActCall = _blackjackGameRound.PlayerRoundStates[EPlayers.Player1];
-      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, ERoundCalls.Hit);
+      _blackjackGameRound.PlayerCall(EPlayers.Player1, ERoundCalls.Hit);
       EPlayerRoundState callStateAfterActCall = _blackjackGameRound.PlayerRoundStates[EPlayers.Player1];
 
       //Assert
@@ -97,19 +98,19 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       //Arrange
       while (_blackjackGameRound.PlayersSumOfCards[EPlayers.Player1] < 21)
       {
-        _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, ERoundCalls.Hit);
+        _blackjackGameRound.PlayerCall(EPlayers.Player1, ERoundCalls.Hit);
       }
 
       while (_blackjackGameRound.PlayersSumOfCards[EPlayers.Player2] < 21)
       {
-        _blackjackGameRound.ProcessPlayerCall(EPlayers.Player2, ERoundCalls.Hit);
+        _blackjackGameRound.PlayerCall(EPlayers.Player2, ERoundCalls.Hit);
       }
 
       ERoundCalls playerCall = ERoundCalls.Hit;
       int numberOfPlayerThreesCards = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
 
       //Act
-      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player3, playerCall);
+      _blackjackGameRound.PlayerCall(EPlayers.Player3, playerCall);
       int numberOfPlayerThreesCardsAfterHit = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
 
       //Assert
