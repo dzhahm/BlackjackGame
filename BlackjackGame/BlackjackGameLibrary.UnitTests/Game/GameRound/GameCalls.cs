@@ -1,5 +1,6 @@
 ﻿using BlackjackGameLibrary.Game;
 using BlackjackGameLibrary.Game.Round;
+using BlackjackGameLibrary.Game.Round.Enums;
 using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

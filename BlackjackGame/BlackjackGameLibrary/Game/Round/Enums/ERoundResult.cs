@@ -1,4 +1,4 @@
-﻿namespace BlackjackGameLibrary.Game.Round
+﻿namespace BlackjackGameLibrary.Game.Round.Enums
 {
   public enum ERoundResult
   {

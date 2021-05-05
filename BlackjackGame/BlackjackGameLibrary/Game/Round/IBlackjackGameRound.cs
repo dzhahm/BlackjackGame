@@ -1,4 +1,5 @@
-﻿using BlackjackGameLibrary.PlayingCards;
+﻿using BlackjackGameLibrary.Game.Round.Enums;
+using BlackjackGameLibrary.PlayingCards;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
