@@ -1,6 +1,5 @@
 ﻿using BlackjackGameLibrary.Game.Round.Enums;
 using BlackjackGameLibrary.PlayingCards;
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace BlackjackGameLibrary.Game.Round
     private PlayedCard _dealersSecondPlayedCard;
 
     private ERoundState _roundState;
-    public ERoundState RoundState { get; }
+    public ERoundState RoundState => _roundState;
 
     public PlayedCard DealersFirstPlayedCard => _dealersFirstPlayedCard;
     public PlayedCard DealersSecondPlayedCard => _dealersSecondPlayedCard;
@@ -30,7 +29,6 @@ namespace BlackjackGameLibrary.Game.Round
     public Dictionary<EPlayers, int> PlayersSumOfCards => _playersSumOfCards;
 
     private Dictionary<EPlayers, EPlayerRoundState> _playerRoundStates;
-
     public ImmutableDictionary<EPlayers, EPlayerRoundState> PlayerRoundStates => _playerRoundStates.ToImmutableDictionary();
 
     public BlackjackGameRound(ref List<Card> cards, int numberOfPlayers)
@@ -240,15 +238,22 @@ namespace BlackjackGameLibrary.Game.Round
 
     private void SumCardValuesOfAllPlayers()
     {
-      foreach (KeyValuePair<EPlayers, List<Card>> cardsOfPlayer in _playerCards)
+      foreach (EPlayers player in _playerCards.Keys)
       {
-        _playersSumOfCards[cardsOfPlayer.Key] = SumCardValues(cardsOfPlayer.Value);
+        SumCardValuesForPlayer(player);
       }
     }
 
     private void SumCardValuesForPlayer(EPlayers player)
     {
-      _playersSumOfCards[player] = SumCardValues(_playerCards[player]);
+      int sum = SumCardValues(_playerCards[player]);
+      _playersSumOfCards[player] = sum;
+
+      if (sum > 21)
+      {
+        _playerResults[player] = ERoundResult.DealerWins;
+        _playerRoundStates[player] = EPlayerRoundState.ExceededTwentyOne;
+      }
     }
 
     private int SumCardValues(List<Card> cards)
