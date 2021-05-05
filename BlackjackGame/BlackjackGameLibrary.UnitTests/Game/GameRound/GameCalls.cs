@@ -2,6 +2,7 @@
 using BlackjackGameLibrary.Game.Round;
 using BlackjackGameLibrary.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace BlackjackGameLibrary.UnitTests.Game.GameRound
@@ -30,30 +31,19 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     {
       //Arrange
       ERoundCalls playerCall = ERoundCalls.Hit;
-      ERoundCalls actualCall = _blackjackGameRound.PlayerCalls[EPlayers.Player1];
       int numberOfPlayerOneCards = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
 
       //Act
-      _blackjackGameRound.UpdatePlayersCall(EPlayers.Player1, playerCall);
+      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, playerCall);
       int numberOfPlayerOneCardsAfterHit = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
-      ERoundCalls actualCallAfterHit = _blackjackGameRound.PlayerCalls[EPlayers.Player1];
 
       //Assert
       if (numberOfPlayerOneCards != 2 || numberOfPlayerOneCardsAfterHit != 3)
       {
-        string errorMessage = "Player one does not have expected number of cards before and after the hit call. " +
-                              $"Expected number of cards before the hit call is {2}, actual number of cards before the hit call is {numberOfPlayerOneCards}" +
+        string errorMessage = Environment.NewLine + "Player one does not have expected number of cards before and after the hit call. " + Environment.NewLine +
+                              $"Expected number of cards before the hit call is {2}, actual number of cards before the hit call is {numberOfPlayerOneCards}" + Environment.NewLine +
                               $"Expected number of cards after the hit call is {3}, actual number of cards after the hit call is {numberOfPlayerOneCardsAfterHit}";
         Assert.Fail(errorMessage);
-      }
-
-      if (actualCall != ERoundCalls.None || actualCallAfterHit != playerCall)
-      {
-        string errorMessage = "Player one does not have expected recorded calls before and after the hit call. " +
-                              $"Expected recorded call before the hit call is {ERoundCalls.None}, actual recorded call before the hit call is {actualCall}" +
-                              $"Expected recorded call after the hit call is {ERoundCalls.Hit}, actual recorded call after the hit call is {actualCallAfterHit}";
-        Assert.Fail(errorMessage);
-        Assert.Fail();
       }
     }
 
@@ -62,30 +52,73 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     {
       //Arrange
       ERoundCalls playerCall = ERoundCalls.Stand;
-      ERoundCalls actualCall = _blackjackGameRound.PlayerCalls[EPlayers.Player1];
       int numberOfPlayerOneCards = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
 
       //Act
-      _blackjackGameRound.UpdatePlayersCall(EPlayers.Player1, playerCall);
+      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, playerCall);
       int numberOfPlayerOneCardsAfterStand = _blackjackGameRound.PlayerCards[EPlayers.Player1].Count;
-      ERoundCalls actualCallAfterStand = _blackjackGameRound.PlayerCalls[EPlayers.Player1];
 
       //Assert
       if (numberOfPlayerOneCards != 2 || numberOfPlayerOneCardsAfterStand != 2)
       {
-        string errorMessage = "Player one does not have expected number of cards before and after the stand call. " +
-                              $"Expected number of cards before the stand call is {2}, actual number of cards before the stand call is {numberOfPlayerOneCards}" +
+        string errorMessage = Environment.NewLine + "Player one does not have expected number of cards before and after the stand call. " + Environment.NewLine +
+                              $"Expected number of cards before the stand call is {2}, actual number of cards before the stand call is {numberOfPlayerOneCards}" + Environment.NewLine +
                               $"Expected number of cards after the stand call is {2}, actual number of cards after the stand call is {numberOfPlayerOneCardsAfterStand}";
         Assert.Fail(errorMessage);
       }
+    }
 
-      if (actualCall != ERoundCalls.None || actualCallAfterStand != playerCall)
+    [TestMethod]
+    public void UserIsNotAllowedToMakeCallsAfterExceedingTwentyOne()
+    {
+      //Arrange
+      while (_blackjackGameRound.PlayersSumOfCards[EPlayers.Player1] < 21)
       {
-        string errorMessage = "Player one does not have expected recorded calls before and after the stand call. " +
-                              $"Expected recorded call before the stand call is {ERoundCalls.None}, actual recorded call before the stand call is {actualCall}" +
-                              $"Expected recorded call after the stand call is {ERoundCalls.Stand}, actual recorded call after the stand call is {actualCallAfterStand}";
+        _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, ERoundCalls.Hit);
+      }
+
+      //Act
+      EPlayerRoundState callStateBeforeActCall = _blackjackGameRound.PlayerRoundStates[EPlayers.Player1];
+      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, ERoundCalls.Hit);
+      EPlayerRoundState callStateAfterActCall = _blackjackGameRound.PlayerRoundStates[EPlayers.Player1];
+
+      //Assert
+      if (callStateAfterActCall != EPlayerRoundState.ExceededTwentyOne || callStateBeforeActCall != EPlayerRoundState.ExceededTwentyOne)
+      {
+        string errorMessage =
+          "After exceeding 21, user shall automatically fail and latest call state of player is set to Stand. However, here after exceeding 21 player latest call state is not set to Stand";
         Assert.Fail(errorMessage);
-        Assert.Fail();
+      }
+    }
+
+    [TestMethod]
+    public void SinglePlayerCanContinueMakingCallsAfterOtherPlayersExceedTwentyOne()
+    {
+      //Arrange
+      while (_blackjackGameRound.PlayersSumOfCards[EPlayers.Player1] < 21)
+      {
+        _blackjackGameRound.ProcessPlayerCall(EPlayers.Player1, ERoundCalls.Hit);
+      }
+
+      while (_blackjackGameRound.PlayersSumOfCards[EPlayers.Player2] < 21)
+      {
+        _blackjackGameRound.ProcessPlayerCall(EPlayers.Player2, ERoundCalls.Hit);
+      }
+
+      ERoundCalls playerCall = ERoundCalls.Hit;
+      int numberOfPlayerThreesCards = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
+
+      //Act
+      _blackjackGameRound.ProcessPlayerCall(EPlayers.Player3, playerCall);
+      int numberOfPlayerThreesCardsAfterHit = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
+
+      //Assert
+      if (numberOfPlayerThreesCards != 2 || numberOfPlayerThreesCardsAfterHit != 3)
+      {
+        string errorMessage = Environment.NewLine + "Player three does not have expected number of cards before and after the hit call. " + Environment.NewLine +
+                              $"Expected number of cards before the hit call is {2}, actual number of cards before the hit call is {numberOfPlayerThreesCards}." + Environment.NewLine +
+                              $"Expected number of cards after the hit call is {3}, actual number of cards after the hit call is {numberOfPlayerThreesCardsAfterHit}.";
+        Assert.Fail(errorMessage);
       }
     }
   }

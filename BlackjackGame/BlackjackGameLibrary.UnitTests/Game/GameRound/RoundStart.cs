@@ -49,12 +49,12 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
 
       //Act
       gameRound = new BlackjackGameRound(ref _cards, _numberOfPlayers);
-      ERoundCalls playerOneCall = gameRound.PlayerCalls[EPlayers.Player1];
-      ERoundCalls playerTwoCall = gameRound.PlayerCalls[EPlayers.Player2];
-      ERoundCalls playerThreeCall = gameRound.PlayerCalls[EPlayers.Player3];
+      EPlayerRoundState playerOneCall = gameRound.PlayerRoundStates[EPlayers.Player1];
+      EPlayerRoundState playerTwoCall = gameRound.PlayerRoundStates[EPlayers.Player2];
+      EPlayerRoundState playerThreeCall = gameRound.PlayerRoundStates[EPlayers.Player3];
 
       //Assert
-      if (playerOneCall != ERoundCalls.None || playerTwoCall != ERoundCalls.None || playerThreeCall != ERoundCalls.None)
+      if (playerOneCall != EPlayerRoundState.None || playerTwoCall != EPlayerRoundState.None || playerThreeCall != EPlayerRoundState.None)
       {
         string errorMessage = $"Players should have no calls at the round start. Actual player calls - Player1 : {playerOneCall} - Player2 : {playerTwoCall} - Player3 : {playerThreeCall}";
         Assert.Fail(errorMessage);
