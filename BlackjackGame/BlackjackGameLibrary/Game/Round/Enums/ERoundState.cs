@@ -4,8 +4,7 @@
   {
     None,
     Initialized,
-    FirstCardDeal,
-    SecondCardDeal,
+    CardDeal,
     WaitForCalls,
     AllPlayersStand,
     DealersSecondCardIsOpen,

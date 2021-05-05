@@ -26,7 +26,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       IBlackjackGameRound gameRound;
 
       //Act
-      gameRound = new BlackjackGameRound(ref _cards, _numberOfPlayers);
+      gameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
       gameRound.DealCards();
 
       //Assert
@@ -45,7 +45,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       int numberOfCardsPerPlayer = 2;
 
       //Act
-      gameRound = new BlackjackGameRound(ref _cards, _numberOfPlayers);
+      gameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
       gameRound.DealCards();
       int playerOneCards = gameRound.PlayerCards[EPlayers.Player1].Count;
       int playerTwoCards = gameRound.PlayerCards[EPlayers.Player2].Count;
