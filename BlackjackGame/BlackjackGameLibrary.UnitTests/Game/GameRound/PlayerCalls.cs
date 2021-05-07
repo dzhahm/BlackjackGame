@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace BlackjackGameLibrary.UnitTests.Game.GameRound
 {
   [TestClass]
-  public class GameCalls
+  public class PlayerCalls
   {
     private IBlackjackGameRound _blackjackGameRound;
     private int _numberOfCardDecks;
@@ -22,7 +22,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     {
       _numberOfCardDecks = 6;
       _numberOfPlayers = 3;
-      _cards = new List<Card>(new MultipleCardDecks(_numberOfCardDecks).Cards);
+      _cards = CardDeckWithFivesTensAndFaceCards();
       _blackjackGameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
       _blackjackGameRound.DealCards();
     }
@@ -92,6 +92,13 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       }
     }
 
+    private List<Card> CardDeckWithFivesTensAndFaceCards()
+    {
+      List<Card> tempCardsList = new(new MultipleCardDecks(_numberOfCardDecks).Cards);
+      tempCardsList.RemoveAll(c => c.Value != 5 && c.Value != 10);
+      return tempCardsList;
+    }
+
     [TestMethod]
     public void SinglePlayerCanContinueMakingCallsAfterOtherPlayersExceedTwentyOne()
     {
@@ -106,11 +113,9 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
         _blackjackGameRound.PlayerCall(EPlayers.Player2, ERoundCalls.Hit);
       }
 
-      ERoundCalls playerCall = ERoundCalls.Hit;
-      int numberOfPlayerThreesCards = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
-
       //Act
-      _blackjackGameRound.PlayerCall(EPlayers.Player3, playerCall);
+      int numberOfPlayerThreesCards = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
+      _blackjackGameRound.PlayerCall(EPlayers.Player3, ERoundCalls.Hit);
       int numberOfPlayerThreesCardsAfterHit = _blackjackGameRound.PlayerCards[EPlayers.Player3].Count;
 
       //Assert

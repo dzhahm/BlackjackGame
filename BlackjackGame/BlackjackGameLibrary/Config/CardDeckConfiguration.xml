@@ -10,5 +10,5 @@
 	<NumberOfNumericalCardsInASuit>9</NumberOfNumericalCardsInASuit>
 	<SmallestValueOfNumericalCards>2</SmallestValueOfNumericalCards>
 	<FaceCardValue>10</FaceCardValue>
-	<DefaultAceValue>10</DefaultAceValue>
+	<DefaultAceValue>11</DefaultAceValue>
 </Standard>

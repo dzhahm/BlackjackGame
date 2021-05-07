@@ -12,6 +12,8 @@ namespace BlackjackGameLibrary.Game.Round
     private readonly int _numberOfPlayers;
     private readonly List<Card> _cards;
 
+
+    private ERoundState _roundState;
     public ERoundState RoundState { get; private set; }
 
     public PlayedCard DealersFirstPlayedCard { get; private set; }
@@ -45,11 +47,11 @@ namespace BlackjackGameLibrary.Game.Round
     public void DealCards()
     {
       //First deal round
-      RoundState = ERoundState.CardDeal;
+      _roundState = ERoundState.CardDeal;
       DealForAllPlayers(2);
       DealersFirstPlayedCard = new PlayedCard(_playerCards[EPlayers.Dealer].First(), true);
       DealersSecondPlayedCard = new PlayedCard(_playerCards[EPlayers.Dealer].Last(), false);
-      RoundState = ERoundState.WaitForCalls;
+      _roundState = ERoundState.WaitForCalls;
     }
 
     public void PlayerCall(EPlayers player, ERoundCalls call)
@@ -57,18 +59,8 @@ namespace BlackjackGameLibrary.Game.Round
       new ProcessPlayerCallCommand(_cards, _playerCards, _playerRoundStates).Execute(player, call);
       new SumCardValuesForPlayerCommand(_playerCards, _playersSumOfCards).Execute(player);
       new UpdatePlayerRoundResultCommand(_playersSumOfCards, _playerRoundStates, _playerResults).Execute(player);
-
-
-      CheckIfDealersSecondCardCanBeOpened();
-    }
-
-    private void CheckIfDealersSecondCardCanBeOpened()
-    {
-      if (_playerRoundStates.All(c => c.Value == EPlayerRoundState.Stand || c.Value == EPlayerRoundState.ExceededTwentyOne))
-      {
-        RoundState = ERoundState.AllPlayersStand;
-        OpenDealersSecondCard();
-      }
+      new UpdateRoundStateAfterPlayerCallCommand(_playerRoundStates).Execute(out _roundState);
+      new UpdateDealersSecondCardStateAfterPlayerCallCommand(_roundState, DealersSecondPlayedCard).Execute();
     }
 
     private void InitRound()
@@ -78,7 +70,7 @@ namespace BlackjackGameLibrary.Game.Round
       _playersSumOfCards = new Dictionary<EPlayers, int>();
       _playerResults = new Dictionary<EPlayers, ERoundResult>();
       new InitRoundCommand(_playerRoundStates, _playerCards, _playersSumOfCards).Execute(_numberOfPlayers);
-      RoundState = ERoundState.Initialized;
+      _roundState = ERoundState.Initialized;
     }
 
     private void DealForAllPlayers(int numberOfCardSets)
@@ -88,20 +80,6 @@ namespace BlackjackGameLibrary.Game.Round
       foreach (KeyValuePair<EPlayers, EPlayerRoundState> playerRoundState in _playerRoundStates)
       {
         _playerRoundStates[playerRoundState.Key] = EPlayerRoundState.CanMakeHitCall;
-      }
-    }
-
-    public void OpenDealersSecondCard()
-    {
-      if (RoundState == ERoundState.AllPlayersStand)
-      {
-        _playerCards[EPlayers.Dealer].Add(DealersFirstPlayedCard);
-        _playerCards[EPlayers.Dealer].Add(DealersSecondPlayedCard);
-        _playersSumOfCards[EPlayers.Dealer] = SumCardValues(_playerCards[EPlayers.Dealer]);
-      }
-      else
-      {
-        //TODO error case, dealers cards cannot be opened before all players call stand or they exceed 21
       }
     }
 

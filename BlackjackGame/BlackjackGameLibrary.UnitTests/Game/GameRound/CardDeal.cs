@@ -38,6 +38,16 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     }
 
     [TestMethod]
+    public void DealersFirstCardIsClosedAfterCardDeal()
+    {
+    }
+
+    [TestMethod]
+    public void DealersSecondCardIsClosedAfterCardDeal()
+    {
+    }
+
+    [TestMethod]
     public void PlayerGetsTwoCardsInTheDealRound()
     {
       //Arrange
