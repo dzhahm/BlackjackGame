@@ -16,7 +16,6 @@ namespace BlackjackGameLibrary.Game.Round
     ImmutableDictionary<EPlayers, EPlayerRoundState> PlayerRoundStates { get; }
     void DealCards();
     void PlayerCall(EPlayers player, ERoundCalls call);
-    void OpenDealersSecondCard();
     void FinalizeRoundResults();
   }
 }
