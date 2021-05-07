@@ -73,7 +73,7 @@ namespace BlackjackGameLibrary.Properties {
         ///	&lt;NumberOfNumericalCardsInASuit&gt;9&lt;/NumberOfNumericalCardsInASuit&gt;
         ///	&lt;SmallestValueOfNumericalCards&gt;2&lt;/SmallestValueOfNumericalCards&gt;
         ///	&lt;FaceCardValue&gt;10&lt;/FaceCardValue&gt;
-        ///	&lt;DefaultAceValue&gt;10&lt;/DefaultAceValue&gt;
+        ///	&lt;DefaultAceValue&gt;11&lt;/DefaultAceValue&gt;
         ///&lt;/Standard&gt;
         ///.
         /// </summary>

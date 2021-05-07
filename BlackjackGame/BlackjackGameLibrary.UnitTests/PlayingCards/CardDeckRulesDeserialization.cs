@@ -111,7 +111,7 @@ namespace BlackjackGameLibrary.UnitTests.PlayingCards
     {
       //Arrange
       CardDeckConfiguration configuration;
-      int defaultAceValue = 10;
+      int defaultAceValue = 11;
 
       //Act
       configuration = new CardDeckConfigurationProvider().GetRules();
