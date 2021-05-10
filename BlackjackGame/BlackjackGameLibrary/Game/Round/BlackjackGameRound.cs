@@ -1,6 +1,7 @@
 ﻿using BlackjackGameLibrary.Game.Round.Commands;
 using BlackjackGameLibrary.Game.Round.Enums;
 using BlackjackGameLibrary.PlayingCards;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -89,6 +90,11 @@ namespace BlackjackGameLibrary.Game.Round
       {
         new SumCardValuesForPlayerCommand(_playerCards, _playersSumOfCards).Execute(EPlayers.Dealer);
         new FinalizeRoundResultsCommand(_playerRoundStates, _playersSumOfCards, _playerResults).Execute();
+      }
+      else
+      {
+        throw new InvalidOperationException(
+          "The round is ONLY finalized if all players either make the stand call or some of the players make the stand call and some of them lose the round because they exceed 21.");
       }
     }
   }
