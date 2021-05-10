@@ -14,7 +14,7 @@ namespace BlackjackGameLibrary.Game.Round
 
 
     private ERoundState _roundState;
-    public ERoundState RoundState { get; private set; }
+    public ERoundState RoundState => _roundState;
 
     public PlayedCard DealersFirstPlayedCard { get; private set; }
 
@@ -69,7 +69,7 @@ namespace BlackjackGameLibrary.Game.Round
       _playerCards = new Dictionary<EPlayers, List<Card>>();
       _playersSumOfCards = new Dictionary<EPlayers, int>();
       _playerResults = new Dictionary<EPlayers, ERoundResult>();
-      new InitRoundCommand(_playerRoundStates, _playerCards, _playersSumOfCards).Execute(_numberOfPlayers);
+      new InitRoundCommand(_playerRoundStates, _playerResults, _playerCards, _playersSumOfCards).Execute(_numberOfPlayers);
       _roundState = ERoundState.Initialized;
     }
 
@@ -85,48 +85,11 @@ namespace BlackjackGameLibrary.Game.Round
 
     public void FinalizeRoundResults()
     {
-      if (RoundState == ERoundState.AllPlayersStand)
+      if (_roundState == ERoundState.AllPlayersStand || _roundState == ERoundState.AtLeastOnePlayerStandAndOtherPlayersExceedTwentyOne)
       {
-        new FinalizeRoundResultsCommand(_playersSumOfCards, _playerResults).Execute();
+        new SumCardValuesForPlayerCommand(_playerCards, _playersSumOfCards).Execute(EPlayers.Dealer);
+        new FinalizeRoundResultsCommand(_playerRoundStates, _playersSumOfCards, _playerResults).Execute();
       }
-    }
-
-    private void SumCardValuesOfAllPlayers()
-    {
-      foreach (EPlayers player in _playerCards.Keys)
-      {
-        SumCardValuesForPlayer(player);
-      }
-    }
-
-    private void SumCardValuesForPlayer(EPlayers player)
-    {
-      int sum = SumCardValues(_playerCards[player]);
-      _playersSumOfCards[player] = sum;
-
-      if (sum > 21)
-      {
-        _playerResults[player] = ERoundResult.DealerWins;
-        _playerRoundStates[player] = EPlayerRoundState.ExceededTwentyOne;
-      }
-    }
-
-    private int SumCardValues(List<Card> cards)
-    {
-      int sum = cards.Where(c => c.CardType != ECardType.Ace).Sum(c => c.Value);
-      foreach (var aces in cards.Where(c => c.CardType == ECardType.Ace))
-      {
-        if (sum + 11 > 21)
-        {
-          sum++;
-        }
-        else
-        {
-          sum = sum + 10;
-        }
-      }
-
-      return sum;
     }
   }
 }

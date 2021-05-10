@@ -61,5 +61,26 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
         Assert.Fail(errorMessage);
       }
     }
+
+    [TestMethod]
+    public void AllUsersHaveNoRoundResultsAtTheStart()
+    {
+      //Arrange
+      IBlackjackGameRound gameRound;
+
+      //Act
+      gameRound = new BlackjackGameRound(_cards, _numberOfPlayers);
+      ERoundResult playerOneResult = gameRound.PlayerResults[EPlayers.Player1];
+      ERoundResult playerTwoResult = gameRound.PlayerResults[EPlayers.Player2];
+      ERoundResult playerThreeResult = gameRound.PlayerResults[EPlayers.Player3];
+
+      //Assert
+      if (playerOneResult != ERoundResult.None || playerTwoResult != ERoundResult.None || playerThreeResult != ERoundResult.None)
+      {
+        string errorMessage =
+          $"Players should have no round results at the round start. Actual player round results - Player1 : {playerOneResult} - Player2 : {playerTwoResult} - Player3 : {playerThreeResult}";
+        Assert.Fail(errorMessage);
+      }
+    }
   }
 }

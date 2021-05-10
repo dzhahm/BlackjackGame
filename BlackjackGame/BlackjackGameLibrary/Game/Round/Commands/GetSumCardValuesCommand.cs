@@ -9,15 +9,15 @@ namespace BlackjackGameLibrary.Game.Round.Commands
     public int Execute(List<Card> cards)
     {
       int sum = cards.Where(c => c.CardType != ECardType.Ace).Sum(c => c.Value);
-      foreach (var aces in cards.Where(c => c.CardType == ECardType.Ace))
+      foreach (Card ace in cards.Where(c => c.CardType == ECardType.Ace))
       {
         if (sum + 11 > 21)
         {
-          sum++;
+          sum += 1;
         }
         else
         {
-          sum = sum + 10;
+          sum += 11;
         }
       }
 

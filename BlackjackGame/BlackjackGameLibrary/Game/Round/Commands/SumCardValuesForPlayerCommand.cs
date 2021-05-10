@@ -1,5 +1,4 @@
-﻿using BlackjackGameLibrary.Game.Round.Enums;
-using BlackjackGameLibrary.PlayingCards;
+﻿using BlackjackGameLibrary.PlayingCards;
 using System.Collections.Generic;
 
 namespace BlackjackGameLibrary.Game.Round.Commands
