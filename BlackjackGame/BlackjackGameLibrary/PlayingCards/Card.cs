@@ -1,8 +1,10 @@
-﻿namespace BlackjackGameLibrary.PlayingCards
+﻿using System;
+
+namespace BlackjackGameLibrary.PlayingCards
 {
   public class Card : ICard
   {
-    private readonly int _value;
+    protected int _value;
     private readonly ECardSuitTypes _cardSuitType;
     private readonly ECardType _cardType;
 
@@ -11,6 +13,17 @@
       _value = value;
       _cardSuitType = cardSuitType;
       _cardType = cardType;
+    }
+
+
+    public Card GetNumericalCard(int value, ECardSuitTypes cardSuitType)
+    {
+      if (value <= 10)
+      {
+        return new Card(value, cardSuitType, ECardType.Numerical);
+      }
+
+      throw new ArgumentException();
     }
 
     public int Value => _value;

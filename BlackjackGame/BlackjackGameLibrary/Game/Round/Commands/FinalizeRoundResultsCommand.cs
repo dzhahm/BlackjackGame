@@ -1,16 +1,18 @@
 ﻿using BlackjackGameLibrary.Game.Round.Enums;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BlackjackGameLibrary.Game.Round.Commands
 {
   public class FinalizeRoundResultsCommand
   {
+    private readonly Dictionary<EPlayers, EPlayerRoundState> _playerRoundStates;
     private readonly Dictionary<EPlayers, int> _playersSumOfCards;
     private readonly Dictionary<EPlayers, ERoundResult> _playerResults;
 
-    public FinalizeRoundResultsCommand(Dictionary<EPlayers, int> playersSumOfCards, Dictionary<EPlayers, ERoundResult> playerResults)
+    public FinalizeRoundResultsCommand(Dictionary<EPlayers, EPlayerRoundState> playerRoundStates, Dictionary<EPlayers, int> playersSumOfCards, Dictionary<EPlayers, ERoundResult> playerResults)
     {
+      _playerRoundStates = playerRoundStates;
       _playersSumOfCards = playersSumOfCards;
       _playerResults = playerResults;
     }
@@ -18,43 +20,38 @@ namespace BlackjackGameLibrary.Game.Round.Commands
     public void Execute()
     {
       int dealerCardsSum = _playersSumOfCards[EPlayers.Dealer];
-      foreach (KeyValuePair<EPlayers, int> playerCardsSum in _playersSumOfCards.Where(p => p.Key != EPlayers.Dealer))
+      foreach (KeyValuePair<EPlayers, EPlayerRoundState> playerRoundState in _playerRoundStates)
       {
-        if (playerCardsSum.Value > 21)
+        if (playerRoundState.Key != EPlayers.Dealer && playerRoundState.Value == EPlayerRoundState.Stand)
         {
-          _playerResults[playerCardsSum.Key] = ERoundResult.DealerWins;
+          EPlayers player = playerRoundState.Key;
+          int playerCardsSum = _playersSumOfCards[player];
+          if (playerCardsSum <= 21)
+          {
+            if (dealerCardsSum > playerCardsSum)
+            {
+              _playerResults[player] = ERoundResult.DealerWins;
+            }
+
+            if (dealerCardsSum == playerCardsSum)
+            {
+              _playerResults[player] = ERoundResult.Push;
+            }
+
+            if (dealerCardsSum < playerCardsSum)
+            {
+              _playerResults[player] = ERoundResult.PlayerWins;
+            }
+          }
+          else
+          {
+            throw new InvalidOperationException();
+          }
         }
 
-        if (playerCardsSum.Value == 21)
+        else
         {
-          if (dealerCardsSum == 21)
-          {
-            _playerResults[playerCardsSum.Key] = ERoundResult.Push;
-            return;
-          }
-
-          _playerResults[playerCardsSum.Key] = ERoundResult.PlayerWins;
-        }
-
-        if (playerCardsSum.Value < 21)
-        {
-          if (dealerCardsSum > playerCardsSum.Value)
-          {
-            _playerResults[playerCardsSum.Key] = ERoundResult.DealerWins;
-            return;
-          }
-
-          if (dealerCardsSum == playerCardsSum.Value)
-          {
-            _playerResults[playerCardsSum.Key] = ERoundResult.Push;
-            return;
-          }
-
-          if (dealerCardsSum < playerCardsSum.Value)
-          {
-            _playerResults[playerCardsSum.Key] = ERoundResult.PlayerWins;
-            return;
-          }
+          throw new InvalidOperationException();
         }
       }
     }
