@@ -16,7 +16,7 @@ namespace BlackjackGameLibrary.UnitTests.Game
       IBlackjackGame game;
 
       //Act
-      game = new BlackjackGame(numberOfCardDecks, 3);
+      game = new BlackjackGame(numberOfCardDecks);
       game.ShuffleCards();
       int numberOfDisplacedCards = CalculateDisplacedNumberOfCards(numberOfCardDecks, game.PlayingCards);
       //Assert
