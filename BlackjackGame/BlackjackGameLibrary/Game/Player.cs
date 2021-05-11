@@ -7,17 +7,17 @@ namespace BlackjackGameLibrary.Game
 {
   public class Player : IPlayer
   {
-    public string Firstname { get; }
-    public string Surname { get; }
-    public EPlayers PlayerIdentifier { get; }
+    public string FirstName { get; }
+    public string LastName { get; }
+    public int PlayerIdentifier { get; }
 
     private readonly Dictionary<int, ERoundResult> _roundResults;
     public ImmutableDictionary<int, ERoundResult> RoundResults => _roundResults.ToImmutableDictionary();
 
-    public Player(string firstName, string surName, EPlayers playerIdentifier)
+    public Player(string firstName, string surName, int playerIdentifier)
     {
-      Firstname = firstName;
-      Surname = surName;
+      FirstName = firstName;
+      LastName = surName;
       PlayerIdentifier = playerIdentifier;
       _roundResults = new Dictionary<int, ERoundResult>();
     }

@@ -5,9 +5,9 @@ namespace BlackjackGameLibrary.Game
 {
   public interface IPlayer
   {
-    public string Firstname { get; }
-    public string Surname { get; }
-    public EPlayers PlayerIdentifier { get; }
+    public string FirstName { get; }
+    public string LastName { get; }
+    public int PlayerIdentifier { get; }
     ImmutableDictionary<int, ERoundResult> RoundResults { get; }
     public void AddRoundResult(int roundNumber, ERoundResult roundResult);
   }

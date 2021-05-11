@@ -22,8 +22,8 @@ namespace BlackjackGameLibrary.Game
 
     public int NumberOfPlayers => _players?.Count ?? 0;
 
-    private List<Player> _players;
-    public ImmutableList<Player> Players => _players.ToImmutableList();
+    private Dictionary<EPlayers, Player> _players;
+    public ImmutableDictionary<EPlayers, Player> Players => _players.ToImmutableDictionary();
 
 
     private IBlackjackGameRound _actualGameRound;
@@ -40,7 +40,7 @@ namespace BlackjackGameLibrary.Game
 
     private void InitGame()
     {
-      _players = new List<Player>();
+      _players = new Dictionary<EPlayers, Player>();
       _rounds = new List<IBlackjackGameRound>();
       _playingCards = new List<Card>();
       CreatePlayingCards();
@@ -48,16 +48,25 @@ namespace BlackjackGameLibrary.Game
 
     public void AddNewPlayer(Player player)
     {
-      if (_players?.Count < MaximumNumberOfAllowedPlayers)
+      if (_players?.Count == 0)
       {
-        if (_players.Any(p => p.PlayerIdentifier == player.PlayerIdentifier))
-        {
-          throw new InvalidOperationException("New player with the same player identifier can not be added!");
-        }
-
-        _players.Add(player);
+        _players.Add(EPlayers.Player1, player);
+        return;
       }
-      else
+
+      if (_players?.Count == 1)
+      {
+        _players.Add(EPlayers.Player2, player);
+        return;
+      }
+
+      if (_players?.Count == 2)
+      {
+        _players.Add(EPlayers.Player3, player);
+        return;
+      }
+
+      if (_players?.Count == 3)
       {
         throw new InvalidOperationException("Maximum number of allowed players has been reached! More players cannot be added.");
       }
@@ -65,13 +74,14 @@ namespace BlackjackGameLibrary.Game
 
     public void RemovePlayer(Player player)
     {
-      if (_players.Contains(player))
+      if (_players.ContainsValue(player))
       {
-        _players.Remove(player);
+        EPlayers playerIdentifier = _players.Keys.First(k => _players[k] == player);
+        _players.Remove(playerIdentifier);
       }
       else
       {
-        throw new InvalidOperationException($"Player {player.Firstname} does not exist in the current list of players!");
+        throw new InvalidOperationException($"Player {player.FirstName} does not exist in the current list of players!");
       }
     }
 
@@ -109,7 +119,7 @@ namespace BlackjackGameLibrary.Game
       {
         foreach (KeyValuePair<EPlayers, ERoundResult> playerResult in _actualGameRound.PlayerResults)
         {
-          _players.First(p => p.PlayerIdentifier == playerResult.Key).AddRoundResult(roundNumber, playerResult.Value);
+          _players[playerResult.Key].AddRoundResult(roundNumber, playerResult.Value);
         }
 
         _rounds.Add(_actualGameRound);

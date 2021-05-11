@@ -15,7 +15,7 @@ namespace BlackjackGameLibrary.Game
 
     int NumberOfPlayers { get; }
 
-    ImmutableList<Player> Players { get; }
+    ImmutableDictionary<EPlayers, Player> Players { get; }
 
     IBlackjackGameRound ActualGameRound { get; }
 
