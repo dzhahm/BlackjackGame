@@ -48,8 +48,6 @@ namespace BlackjackGameLibrary.Game.Round.Commands
         return;
       }
 
-      _playerCards[EPlayers.Dealer].Add(new PlayedCard(_cards.First(), true));
-      _cards.RemoveAt(0);
 
       if (_numberOfPlayers > 0)
       {
@@ -68,6 +66,9 @@ namespace BlackjackGameLibrary.Game.Round.Commands
         _playerCards[EPlayers.Player3].Add(new PlayedCard(_cards.First(), true));
         _cards.RemoveAt(0);
       }
+
+      _playerCards[EPlayers.Dealer].Add(new PlayedCard(_cards.First(), true));
+      _cards.RemoveAt(0);
     }
   }
 }

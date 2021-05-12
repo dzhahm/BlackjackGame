@@ -15,24 +15,39 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     private List<Card> CardsForScenarioOne()
     {
       List<Card> cardsForRound = new();
-      //Dealers first card
-      cardsForRound.Add(new NumericalCard(5, ECardSuitTypes.Clubs));
+
+      #region FirstCard
+
       //Player one first card
       cardsForRound.Add(new NumericalCard(7, ECardSuitTypes.Hearts));
       //Player two first card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Diamonds, ECardType.Jack));
       //Player three first card
       cardsForRound.Add(new NumericalCard(2, ECardSuitTypes.Diamonds));
-      //Dealers second card
-      cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Clubs));
+      //Dealers first card
+      cardsForRound.Add(new NumericalCard(5, ECardSuitTypes.Clubs));
+
+      #endregion
+
+      #region SecondCard
+
       //Player one second card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Spades, ECardType.Queen));
       //Player two second card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Hearts, ECardType.Jack));
       //Player three second card
       cardsForRound.Add(new NumericalCard(4, ECardSuitTypes.Spades));
+      //Dealers second card
+      cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Clubs));
+
+      #endregion
+
+      #region ThirdCard
+
       //Player three third card
       cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Diamonds));
+
+      #endregion
 
       //Player one's cards : Hearts 7, Queens of Spades => Sum is 17
       //Player two's cards : Jack of Diamonds, Jack of Hearts => Sum is 20
@@ -135,26 +150,41 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     private List<Card> CardsForScenarioTwo()
     {
       List<Card> cardsForRound = new();
-      //Dealers first card
-      cardsForRound.Add(new NumericalCard(8, ECardSuitTypes.Diamonds));
+
+      #region FirstCard
+
       //Player one first card
       cardsForRound.Add(new NumericalCard(2, ECardSuitTypes.Clubs));
       //Player two first card
       cardsForRound.Add(new NumericalCard(4, ECardSuitTypes.Spades));
       //Player three first card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Diamonds, ECardType.King));
-      //Dealers second card
-      cardsForRound.Add(new FaceCard(ECardSuitTypes.Spades, ECardType.King));
+      //Dealers first card
+      cardsForRound.Add(new NumericalCard(8, ECardSuitTypes.Diamonds));
+
+      #endregion
+
+      #region SecondCard
+
       //Player one second card
       cardsForRound.Add(new NumericalCard(3, ECardSuitTypes.Spades));
       //Player two second card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Diamonds, ECardType.Jack));
       //Player three second card
       cardsForRound.Add(new NumericalCard(2, ECardSuitTypes.Spades));
+      //Dealers second card
+      cardsForRound.Add(new FaceCard(ECardSuitTypes.Spades, ECardType.King));
+
+      #endregion
+
+      #region ThirdCard
+
       //Player one third card
       cardsForRound.Add(new NumericalCard(7, ECardSuitTypes.Diamonds));
       //Player three third card
       cardsForRound.Add(new NumericalCard(5, ECardSuitTypes.Clubs));
+
+      #endregion
 
       //Player one's cards : Clubs 2, Spades 3, Diamonds 7  => Sum is 12
       //Player two's cards : Spades 4, Jack of Diamonds => Sum is 14
@@ -256,26 +286,41 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     private List<Card> CardsForScenarioThree()
     {
       List<Card> cardsForRound = new();
-      //Dealers first card
-      cardsForRound.Add(new AceCard(ECardSuitTypes.Spades));
+
+      #region FirstCard
+
       //Player one first card
       cardsForRound.Add(new NumericalCard(6, ECardSuitTypes.Clubs));
       //Player two first card
       cardsForRound.Add(new NumericalCard(10, ECardSuitTypes.Diamonds));
       //Player three first card
       cardsForRound.Add(new NumericalCard(3, ECardSuitTypes.Diamonds));
-      //Dealers second card
-      cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Hearts));
+      //Dealers first card
+      cardsForRound.Add(new AceCard(ECardSuitTypes.Spades));
+
+      #endregion
+
+      #region SecondCard
+
       //Player one second card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Spades, ECardType.Queen));
       //Player two second card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Hearts, ECardType.Jack));
       //Player three second card
       cardsForRound.Add(new NumericalCard(2, ECardSuitTypes.Clubs));
+      //Dealers second card
+      cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Hearts));
+
+      #endregion
+
+      #region ThirdCard
+
       //Player one third card
       cardsForRound.Add(new NumericalCard(5, ECardSuitTypes.Hearts));
       //Player three third card
       cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Diamonds));
+
+      #endregion
 
       //Player one's cards : Clubs 6, Spades 10, Hearts 5 => Sum is 21
       //Player two's cards : Diamonds 10, Jack of Hearts => Sum is 20
@@ -379,28 +424,44 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
     private List<Card> CardsForScenarioFour()
     {
       List<Card> cardsForRound = new();
-      //Dealers first card
-      cardsForRound.Add(new NumericalCard(8, ECardSuitTypes.Hearts));
+
+      #region FirstCard
+
       //Player one first card
       cardsForRound.Add(new AceCard(ECardSuitTypes.Clubs));
       //Player two first card
       cardsForRound.Add(new AceCard(ECardSuitTypes.Diamonds));
       //Player three first card
       cardsForRound.Add(new NumericalCard(3, ECardSuitTypes.Diamonds));
-      //Dealers second card
-      cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Hearts));
+      //Dealers first card
+      cardsForRound.Add(new NumericalCard(8, ECardSuitTypes.Hearts));
+
+      #endregion
+
+      #region SecondCard
+
       //Player one second card
       cardsForRound.Add(new AceCard(ECardSuitTypes.Clubs));
       //Player two second card
       cardsForRound.Add(new NumericalCard(4, ECardSuitTypes.Hearts));
       //Player three second card
       cardsForRound.Add(new NumericalCard(2, ECardSuitTypes.Clubs));
+      //Dealers second card
+      cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Hearts));
+
+      #endregion
+
+      #region ThirdCard
+
       //Player one third card
       cardsForRound.Add(new NumericalCard(7, ECardSuitTypes.Spades));
       //Player two third card
       cardsForRound.Add(new AceCard(ECardSuitTypes.Hearts));
       //Player three third card
       cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Diamonds));
+
+      #endregion
+
 
       //Player one's cards : Ace of Clubs, Ace of Clubs, Spades 7 => Sum is 11 + 1 + 7 = 19
       //Player two's cards : Ace of Diamonds, Hearts 4, Ace of Hearts => Sum is 11 + 4 + 1 = 16
