@@ -10,6 +10,12 @@ namespace BlackjackGameLibrary.Game.Round.Commands
     private readonly Dictionary<EPlayers, List<Card>> _playerCards;
     private readonly List<Card> _cards;
 
+    /// <summary>
+    /// Deal cards for all active players and the dealer. 
+    /// </summary>
+    /// <param name="cards">Collection of all cards used in the game</param>
+    /// <param name="playerCards">Collection of cards which are owned by players and the dealer</param>
+    /// <param name="numberOfPlayers">Number of players active in the round</param>
     public DealCardsForAllPlayersCommand(List<Card> cards, Dictionary<EPlayers, List<Card>> playerCards, int numberOfPlayers)
     {
       _cards = cards;
@@ -17,6 +23,10 @@ namespace BlackjackGameLibrary.Game.Round.Commands
       _numberOfPlayers = numberOfPlayers;
     }
 
+    /// <summary>
+    /// Execute deal cards command. Cards are dealt in two round. In each round players and the dealer get a single card in this order Player1 => Player2 => Player3 => Dealer
+    /// </summary>
+    /// <param name="numberOfCardSet"></param>
     public void Execute(int numberOfCardSet)
     {
       for (int i = 0; i < numberOfCardSet; i++)
