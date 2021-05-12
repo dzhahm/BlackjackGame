@@ -9,29 +9,61 @@ using System.Linq;
 
 namespace BlackjackGameLibrary.Game
 {
+  /// <summary>
+  /// The implementation of the game "Blackjack". It is played with from one to eight card decks.
+  /// One to three players are playing against the same player who is the dealer.
+  /// The game lasts multiple rounds. Players can join the game at different rounds. 
+  /// </summary>
   public class BlackjackGame : IBlackjackGame
   {
-    private const int MaximumNumberOfAllowedPlayers = 3;
-    private readonly int _numberOfCardDecks;
-    private List<Card> _playingCards;
+    /// <summary>
+    /// Number of the card decks used in the game. Ideally, it should be one to eight card decks.
+    /// </summary>
     public int NumberOfCardDecks => _numberOfCardDecks;
 
+    private readonly int _numberOfCardDecks;
+
+    /// <summary>
+    /// Number of the remaining cards in the game. 
+    /// </summary>
     public int NumberOfRemainingCards => _playingCards?.Count ?? 0;
 
+    /// <summary>
+    /// List of all cards from all card decks.
+    /// </summary>
     public List<Card> PlayingCards => _playingCards;
 
-    public int NumberOfPlayers => _players?.Count ?? 0;
+    private List<Card> _playingCards;
 
-    private Dictionary<EPlayers, Player> _players;
+    /// <summary>
+    /// Collection of active players in the game. 
+    /// </summary>
     public ImmutableDictionary<EPlayers, Player> Players => _players.ToImmutableDictionary();
 
+    private Dictionary<EPlayers, Player> _players;
+
+    /// <summary>
+    /// Number of active players in the game. It can change from round to round. 
+    /// </summary>
+    public int NumberOfPlayers => _players?.Count ?? 0;
 
     private IBlackjackGameRound _actualGameRound;
     private List<IBlackjackGameRound> _rounds;
 
+    /// <summary>
+    /// Actual round in the game. 
+    /// </summary>
     public IBlackjackGameRound ActualGameRound => _actualGameRound;
+
+    /// <summary>
+    /// Collection of all rounds played in the game. 
+    /// </summary>
     public ImmutableList<IBlackjackGameRound> Rounds => _rounds.ToImmutableList();
 
+    /// <summary>
+    /// Constructor for the blackjack game. 
+    /// </summary>
+    /// <param name="numberOfCardDecks">Number of card decks used in the game. Ideally, it should be a number from one to eight.</param>
     public BlackjackGame(int numberOfCardDecks)
     {
       _numberOfCardDecks = numberOfCardDecks;
@@ -46,6 +78,10 @@ namespace BlackjackGameLibrary.Game
       CreatePlayingCards();
     }
 
+    /// <summary>
+    /// Add a new player to the game. New player can be only added if maximum number of players are not reached. New player will be active in the new round. 
+    /// </summary>
+    /// <param name="player"></param>
     public void AddNewPlayer(Player player)
     {
       if (_players?.Count == 0)
@@ -72,6 +108,10 @@ namespace BlackjackGameLibrary.Game
       }
     }
 
+    /// <summary>
+    /// Remove a player from the game. Player can be removed from the game after player finishes the actual being played round. Otherwise, player loses the actual round. 
+    /// </summary>
+    /// <param name="player"></param>
     public void RemovePlayer(Player player)
     {
       if (_players.ContainsValue(player))
@@ -93,13 +133,16 @@ namespace BlackjackGameLibrary.Game
     }
 
     /// <summary>
-    /// Fisher-Yates shuffle algorithm
+    /// Fisher-Yates shuffle algorithm is used to shuffle cards after card decks are created. 
     /// </summary>
     public void ShuffleCards()
     {
       new ShuffleAlgorithm().Shuffle(ref _playingCards);
     }
 
+    /// <summary>
+    /// Start a new game round.
+    /// </summary>
     public void StartNewRound()
     {
       if (NumberOfPlayers > 0)
@@ -112,6 +155,9 @@ namespace BlackjackGameLibrary.Game
       }
     }
 
+    /// <summary>
+    /// Finish the actual game round. Game round is only completed after all players finish their calls for the round. 
+    /// </summary>
     public void FinishTheRound()
     {
       int roundNumber = _rounds.Count;
