@@ -8,36 +8,65 @@ using System.Linq;
 
 namespace BlackjackGameLibrary.Game.Round
 {
+  /// <summary>
+  /// The round of the blackjack game. In the round, players try to win the game by trying to reach the number 21 by their cards. If a player exceeds 21, the player loses the round automatically.
+  /// If the number reached by the player is less then dealer's number, player loses the round. 
+  /// </summary>
   public class BlackjackGameRound : IBlackjackGameRound
   {
     private readonly int _numberOfPlayers;
     private readonly List<Card> _cards;
 
-
-    private ERoundState _roundState;
+    /// <summary>
+    /// State of the round. It changes according to the players' calls. 
+    /// </summary>
     public ERoundState RoundState => _roundState;
 
+    private ERoundState _roundState;
+
+    /// <summary>
+    /// The first card of the dealer. It is always open and visible to the players.
+    /// </summary>
     public PlayedCard DealersFirstPlayedCard { get; private set; }
 
+    /// <summary>
+    /// The second card of the dealer. It is face-down until all players finish their call round. 
+    /// </summary>
     public PlayedCard DealersSecondPlayedCard { get; private set; }
 
-
-    private Dictionary<EPlayers, ERoundResult> _playerResults;
+    /// <summary>
+    /// Collection of the all players' results in the round. 
+    /// </summary>
     public ImmutableDictionary<EPlayers, ERoundResult> PlayerResults => _playerResults.ToImmutableDictionary();
 
+    private Dictionary<EPlayers, ERoundResult> _playerResults;
 
-    private Dictionary<EPlayers, List<Card>> _playerCards;
+    /// <summary>
+    /// Collection of players' cards. 
+    /// </summary>
     public ImmutableDictionary<EPlayers, List<Card>> PlayerCards => _playerCards.ToImmutableDictionary();
 
+    private Dictionary<EPlayers, List<Card>> _playerCards;
 
-    private Dictionary<EPlayers, int> _playersSumOfCards;
+    /// <summary>
+    /// The collection of player card sums. It is updated after each hit call made by the player.  
+    /// </summary>
     public ImmutableDictionary<EPlayers, int> PlayersSumOfCards => _playersSumOfCards.ToImmutableDictionary();
 
+    private Dictionary<EPlayers, int> _playersSumOfCards;
 
-    private Dictionary<EPlayers, EPlayerRoundState> _playerRoundStates;
+    /// <summary>
+    /// The collection of players round states.
+    /// </summary>
     public ImmutableDictionary<EPlayers, EPlayerRoundState> PlayerRoundStates => _playerRoundStates.ToImmutableDictionary();
 
+    private Dictionary<EPlayers, EPlayerRoundState> _playerRoundStates;
 
+    /// <summary>
+    /// Constructor for the blackjack game round
+    /// </summary>
+    /// <param name="cards">Collection of cards which are already shuffled</param>
+    /// <param name="numberOfPlayers">Number of players active in the round</param>
     public BlackjackGameRound(List<Card> cards, int numberOfPlayers)
     {
       _cards = cards;
@@ -45,6 +74,9 @@ namespace BlackjackGameLibrary.Game.Round
       InitRound();
     }
 
+    /// <summary>
+    /// Start the round by dealing cards to all players. Each player and the dealer get two cards in total and a single card in each deal round. The deal order is Player1 => Player2 => Player3 => Dealer. 
+    /// </summary>
     public void DealCards()
     {
       //First deal round
@@ -55,6 +87,11 @@ namespace BlackjackGameLibrary.Game.Round
       _roundState = ERoundState.WaitForCalls;
     }
 
+    /// <summary>
+    /// Process the call made by the player. Player can make HIT and STAND calls. HIT call is used to get an additional card and STAND call is used to wait until dealer's second card is turned up. 
+    /// </summary>
+    /// <param name="player">Player who makes the call</param>
+    /// <param name="call">Type of the call</param>
     public void PlayerCall(EPlayers player, ERoundCalls call)
     {
       new ProcessPlayerCallCommand(_cards, _playerCards, _playerRoundStates).Execute(player, call);
@@ -84,6 +121,10 @@ namespace BlackjackGameLibrary.Game.Round
       }
     }
 
+    /// <summary>
+    /// After either all players stand OR some players stand and some player already loses the round, finish the round for all players by turning up dealer's second card.
+    /// If sum of dealer's cards is less than 17, the dealer takes a card until the total is 17 or more.
+    /// </summary>
     public void FinalizeRoundResults()
     {
       if (_roundState == ERoundState.AllPlayersStand || _roundState == ERoundState.AtLeastOnePlayerStandAndOtherPlayersExceedTwentyOne)
