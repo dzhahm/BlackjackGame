@@ -16,48 +16,15 @@
 				</Grid>
 				<Grid Margin="0,400,0,0">
 						<Grid Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="360" Width="360">
-								<Grid Height="80" HorizontalAlignment="Center" VerticalAlignment="Top">
-										<Label HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Montserrat">Player One</Label>
-								</Grid>
-								<uc:PlayerCardsView Margin="0,80,0,0"/>
-								<Grid Margin="0,200,0,0" Height="70" Width="140" VerticalAlignment="Top" HorizontalAlignment="Center">
-										<Button Margin="10,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
-										<Button Margin="80,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
-								</Grid>
-								<Grid Margin="0,280,0,0" Height="70" Width="200" VerticalAlignment="Top" HorizontalAlignment="Center">
-										<Button Margin="10,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">HIT</Button>
-										<Button Margin="120,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">STAND</Button>
-								</Grid>
+								<uc:PlayerView></uc:PlayerView>
 						</Grid>
 
 						<Grid Margin="420,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="360" Width="360">
-								<Grid Height="80" HorizontalAlignment="Center" VerticalAlignment="Top">
-										<Label HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Montserrat">Player Two</Label>
-								</Grid>
-							<uc:PlayerCardsView Margin="0,80,0,0"/>
-								<Grid Margin="0,200,0,0" Height="70" Width="140" VerticalAlignment="Top" HorizontalAlignment="Center">
-										<Button Margin="10,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
-										<Button Margin="80,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
-								</Grid>
-								<Grid Margin="0,280,0,0" Height="70" Width="200" VerticalAlignment="Top" HorizontalAlignment="Center">
-										<Button Margin="10,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">HIT</Button>
-										<Button Margin="120,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">STAND</Button>
-								</Grid>
+							<uc:PlayerView></uc:PlayerView>
 						</Grid>
 
 						<Grid Margin="830,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="360" Width="360">
-								<Grid Height="80" HorizontalAlignment="Center" VerticalAlignment="Top">
-										<Label HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Montserrat">Player Three</Label>
-								</Grid>
-							<uc:PlayerCardsView Margin="0,80,0,0"/>
-								<Grid Margin="0,200,0,0" Height="70" Width="140" VerticalAlignment="Top" HorizontalAlignment="Center">
-										<Button Margin="10,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
-										<Button Margin="80,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
-								</Grid>
-								<Grid Margin="0,280,0,0" Height="70" Width="200" VerticalAlignment="Top" HorizontalAlignment="Center">
-										<Button Margin="10,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">HIT</Button>
-										<Button Margin="120,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">STAND</Button>
-								</Grid>
+							<uc:PlayerView></uc:PlayerView>
 						</Grid>
 				</Grid>
 		</Grid>
