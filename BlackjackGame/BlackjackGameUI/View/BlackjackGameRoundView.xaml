@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="BlackjackGameUI.View.BlackjackGameRoundView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BlackjackGameUI.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1500">
+		<Grid>
+				<Grid Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200">
+						<Grid Height="80" HorizontalAlignment="Center" VerticalAlignment="Top">
+								<Label HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Montserrat">Dealer</Label>
+						</Grid>
+						<local:PlayerCardsView Margin="0,80,0,0"/>
+				</Grid>
+				<Grid Margin="0,400,0,0">
+						<Grid Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="360" Width="360">
+								<local:PlayerView x:Name="PlayerOneView"></local:PlayerView>
+						</Grid>
+
+						<Grid Margin="420,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="360" Width="360">
+								<local:PlayerView x:Name="PlayerTwoView"></local:PlayerView>
+						</Grid>
+
+						<Grid Margin="830,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="360" Width="360">
+								<local:PlayerView x:Name="PlayerThreeView"></local:PlayerView>
+						</Grid>
+				</Grid>
+		</Grid>
+</UserControl>

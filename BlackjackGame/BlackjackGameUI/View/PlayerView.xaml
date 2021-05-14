@@ -16,7 +16,7 @@
 			<Button Margin="80,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
 		</Grid>
 		<Grid Margin="0,280,0,0" Height="70" Width="200" VerticalAlignment="Top" HorizontalAlignment="Center">
-			<Button Name="HitButton" Margin="10,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold" Click="HitButton_OnClick">HIT</Button>
+						<Button Name="HitButton" Margin="10,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold" Click="HitButton_OnClick" IsEnabled="{Binding IsHitButtonEnabled}">HIT</Button>
 			<Button Name="StandButton" Margin="120,0,0,0" Height="50" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">STAND</Button>
 		</Grid>
 	</Grid>

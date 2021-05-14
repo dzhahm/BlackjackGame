@@ -1,8 +1,10 @@
 ﻿using BlackjackGameLibrary.Game;
 using BlackjackGameLibrary.PlayingCards;
 using BlackjackGameUI.Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
 
 namespace BlackjackGameUI.ViewModel
@@ -10,7 +12,10 @@ namespace BlackjackGameUI.ViewModel
   public class PlayerViewModel : INotifyPropertyChanged
   {
     private readonly PlayerCardsViewModel _playerCardsViewModel;
+
     private readonly List<Card> _playerCards;
+
+    public event EventHandler<EventArgs> PlayerPressedHitButton;
 
     public EPlayers Player
     {
@@ -36,16 +41,35 @@ namespace BlackjackGameUI.ViewModel
 
     private string _playerName;
 
+    public bool IsHitButtonEnabled
+    {
+      get => _isHitButtonEnabled;
+      set
+      {
+        _isHitButtonEnabled = value;
+        OnPropertyChanged(nameof(IsHitButtonEnabled));
+      }
+    }
+
+    private bool _isHitButtonEnabled;
 
     public PlayerViewModel(PlayerCardsViewModel playerCardsViewModel)
     {
+      _isHitButtonEnabled = false;
       _playerCardsViewModel = playerCardsViewModel;
       _playerCards = new List<Card>();
-
-      _playerCards.Add(new AceCard(ECardSuitTypes.Hearts));
-      _playerCards.Add(new FaceCard(ECardSuitTypes.Spades, ECardType.King));
-
       _playerCardsViewModel.UpdateCards(_playerCards);
+    }
+
+    public void SetPlayerCards(List<Card> cards)
+    {
+      _playerCards.Clear();
+      foreach (Card card in cards)
+      {
+        _playerCards.Add(card);
+      }
+
+      _playerCardsViewModel.UpdateCards(cards);
     }
 
     public void ClearPlayerCards()
@@ -56,8 +80,7 @@ namespace BlackjackGameUI.ViewModel
 
     public void OnHitCall()
     {
-      _playerCards.Add(new FaceCard(ECardSuitTypes.Clubs, ECardType.Queen));
-      _playerCardsViewModel.UpdateCards(_playerCards);
+      PlayerPressedHitButton?.Invoke(this, EventArgs.Empty);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
