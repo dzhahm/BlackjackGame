@@ -4,8 +4,8 @@ using BlackjackGameUI.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 
 namespace BlackjackGameUI.ViewModel
 {
@@ -15,15 +15,13 @@ namespace BlackjackGameUI.ViewModel
 
     private readonly List<Card> _playerCards;
 
-    public event EventHandler<EventArgs> PlayerPressedHitButton;
-
     public EPlayers Player
     {
       get => _player;
       set
       {
         _player = value;
-        _playerName = _player.ToString();
+        PlayerName = _player.ToString();
       }
     }
 
@@ -41,6 +39,30 @@ namespace BlackjackGameUI.ViewModel
 
     private string _playerName;
 
+    public string CardSum
+    {
+      get => _cardSum;
+      set
+      {
+        _cardSum = value;
+        OnPropertyChanged(nameof(CardSum));
+      }
+    }
+
+    public SolidColorBrush CardSumBackgroundColor
+    {
+      get => _cardSumBackgroundColor;
+      set
+      {
+        _cardSumBackgroundColor = value;
+        OnPropertyChanged(nameof(CardSumBackgroundColor));
+      }
+    }
+
+    private SolidColorBrush _cardSumBackgroundColor;
+
+    private string _cardSum;
+
     public bool IsHitButtonEnabled
     {
       get => _isHitButtonEnabled;
@@ -53,12 +75,23 @@ namespace BlackjackGameUI.ViewModel
 
     private bool _isHitButtonEnabled;
 
+
+    public void PlayerExceededTwentyOne()
+    {
+      IsHitButtonEnabled = false;
+      CardSumBackgroundColor = Brushes.LightCoral;
+    }
+
+    public event EventHandler<EventArgs> PlayerPressedHitButton;
+
     public PlayerViewModel(PlayerCardsViewModel playerCardsViewModel)
     {
       _isHitButtonEnabled = false;
       _playerCardsViewModel = playerCardsViewModel;
       _playerCards = new List<Card>();
       _playerCardsViewModel.UpdateCards(_playerCards);
+      _cardSumBackgroundColor = Brushes.LightGreen;
+      _cardSum = "Sum: ";
     }
 
     public void SetPlayerCards(List<Card> cards)

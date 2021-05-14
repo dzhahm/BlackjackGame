@@ -12,6 +12,7 @@ namespace BlackjackGameUI.ViewModel
 
     private BlackjackGameRound _round;
 
+
     public BlackjackGameRoundViewModel(PlayerViewModel playerOneViewModel, PlayerViewModel playerTwoViewModel, PlayerViewModel playerThreeViewModel)
     {
       _playerViewModels = new Dictionary<EPlayers, PlayerViewModel>()
@@ -20,6 +21,9 @@ namespace BlackjackGameUI.ViewModel
         {EPlayers.Player2, playerTwoViewModel},
         {EPlayers.Player3, playerThreeViewModel}
       };
+      playerOneViewModel.Player = EPlayers.Player1;
+      playerTwoViewModel.Player = EPlayers.Player2;
+      playerThreeViewModel.Player = EPlayers.Player3;
       playerOneViewModel.PlayerPressedHitButton += OnPlayerOnePressedHitButton;
       playerTwoViewModel.PlayerPressedHitButton += OnPlayerTwoPressedHitButton;
       playerThreeViewModel.PlayerPressedHitButton += OnPlayerThreePressedHitButton;
@@ -27,21 +31,30 @@ namespace BlackjackGameUI.ViewModel
 
     private void OnPlayerOnePressedHitButton(object sender, System.EventArgs e)
     {
-      _round.PlayerCall(EPlayers.Player1, ERoundCalls.Hit);
-      _playerViewModels[EPlayers.Player1].SetPlayerCards(_round.PlayerCards[EPlayers.Player1]);
+      HandlePlayerHitCall(EPlayers.Player1);
     }
 
     private void OnPlayerTwoPressedHitButton(object sender, System.EventArgs e)
     {
-      _round.PlayerCall(EPlayers.Player2, ERoundCalls.Hit);
-      _playerViewModels[EPlayers.Player2].SetPlayerCards(_round.PlayerCards[EPlayers.Player2]);
+      HandlePlayerHitCall(EPlayers.Player2);
     }
 
     private void OnPlayerThreePressedHitButton(object sender, System.EventArgs e)
     {
-      _round.PlayerCall(EPlayers.Player3, ERoundCalls.Hit);
-      _playerViewModels[EPlayers.Player3].SetPlayerCards(_round.PlayerCards[EPlayers.Player3]);
+      HandlePlayerHitCall(EPlayers.Player3);
     }
+
+    private void HandlePlayerHitCall(EPlayers player)
+    {
+      _round.PlayerCall(player, ERoundCalls.Hit);
+      _playerViewModels[player].SetPlayerCards(_round.PlayerCards[player]);
+      _playerViewModels[player].CardSum = $"Card sum: {_round.PlayersSumOfCards[player]}";
+      if (_round.PlayerRoundStates[player] == EPlayerRoundState.ExceededTwentyOne)
+      {
+        _playerViewModels[player].PlayerExceededTwentyOne();
+      }
+    }
+
 
     public void StartNewRound(List<Card> cards, int numberOfPlayers)
     {
@@ -58,6 +71,7 @@ namespace BlackjackGameUI.ViewModel
         {
           _playerViewModels[player].SetPlayerCards(_round.PlayerCards[player]);
           _playerViewModels[player].IsHitButtonEnabled = true;
+          _playerViewModels[player].CardSum = $"Card sum: {_round.PlayersSumOfCards[player]}";
         }
       }
     }
