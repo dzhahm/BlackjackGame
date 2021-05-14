@@ -83,7 +83,7 @@ namespace BlackjackGameUI.ViewModel
           _playerViewModels[player].CardSum = $"{_playerViewModels[player].CardSum} - Player wins the round!!!";
         }
 
-        if (_round.PlayerResults[player] == ERoundResult.DealerWins)
+        if (_round.PlayerResults[player] == ERoundResult.DealerWins && _round.PlayerRoundStates[player] != EPlayerRoundState.ExceededTwentyOne)
         {
           _playerViewModels[player].CardSum = $"{_playerViewModels[player].CardSum} - Player loses the round";
         }
