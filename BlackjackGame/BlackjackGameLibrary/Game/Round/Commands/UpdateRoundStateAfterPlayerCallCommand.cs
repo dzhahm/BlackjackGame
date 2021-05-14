@@ -13,23 +13,25 @@ namespace BlackjackGameLibrary.Game.Round.Commands
       _playerRoundStates = playerRoundStates;
     }
 
-    public void Execute(out ERoundState roundState)
+    public ERoundState Execute()
     {
-      roundState = ERoundState.WaitForCalls;
       if (_playerRoundStates.All(p => p.Value == EPlayerRoundState.ExceededTwentyOne))
       {
-        roundState = ERoundState.AllPlayersExceedTwentyOne;
+        return ERoundState.AllPlayersExceedTwentyOne;
       }
 
-      else if (_playerRoundStates.All(p => p.Value == EPlayerRoundState.Stand))
+      if (_playerRoundStates.All(p => p.Value == EPlayerRoundState.Stand))
       {
-        roundState = ERoundState.AllPlayersStand;
+        return ERoundState.AllPlayersStand;
       }
 
-      else if (_playerRoundStates.All(c => c.Value == EPlayerRoundState.Stand || c.Value == EPlayerRoundState.ExceededTwentyOne))
+      if (_playerRoundStates.All(c => c.Value == EPlayerRoundState.Stand || c.Value == EPlayerRoundState.ExceededTwentyOne))
       {
-        roundState = ERoundState.AtLeastOnePlayerStandAndOtherPlayersExceedTwentyOne;
+        return ERoundState.AtLeastOnePlayerStandAndOtherPlayersExceedTwentyOne;
       }
+
+      return ERoundState.WaitForCalls;
+      ;
     }
   }
 }

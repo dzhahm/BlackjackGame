@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="BlackjackGameUI.View.DealerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:BlackjackGameUI.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="320" d:DesignWidth="360">
+	<Grid Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="410" Width="360">
+		<Grid Height="80" HorizontalAlignment="Center" VerticalAlignment="Top">
+			<Label HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Montserrat" Content="{Binding PlayerName}"></Label>
+		</Grid>
+		<uc:PlayerCardsView x:Name="CardsView" Margin="0,80,0,0"/>
+
+		<Grid Margin="0,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50">
+			<Label VerticalAlignment="Center" Content="{Binding CardSum}" Background="{Binding Path=CardSumBackgroundColor}" ></Label>
+		</Grid>
+
+		<Grid Margin="0,250,0,0" Height="70" Width="140" VerticalAlignment="Top" HorizontalAlignment="Center">
+			<Button Margin="10,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
+			<Button Margin="80,0,0,0" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Montserrat" FontSize="16" FontWeight="Bold">=</Button>
+		</Grid>
+	</Grid>
+</UserControl>

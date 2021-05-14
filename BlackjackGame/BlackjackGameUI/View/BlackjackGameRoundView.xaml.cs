@@ -11,7 +11,8 @@ namespace BlackjackGameUI.View
     public BlackjackGameRoundView()
     {
       InitializeComponent();
-      DataContext = new BlackjackGameRoundViewModel((PlayerViewModel) PlayerOneView.DataContext, (PlayerViewModel) PlayerTwoView.DataContext, (PlayerViewModel) PlayerThreeView.DataContext);
+      DataContext = new BlackjackGameRoundViewModel((PlayerViewModel) PlayerOneView.DataContext, (PlayerViewModel) PlayerTwoView.DataContext, (PlayerViewModel) PlayerThreeView.DataContext,
+        (DealerViewModel) DealersView.DataContext);
     }
   }
 }

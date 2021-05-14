@@ -1,13 +1,18 @@
 ﻿using BlackjackGameLibrary.Game.Round.Enums;
 using BlackjackGameLibrary.PlayingCards;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Dynamic;
 
 namespace BlackjackGameLibrary.Game.Round
 {
   public interface IBlackjackGameRound
   {
     ERoundState RoundState { get; }
+
+    public event EventHandler RoundStateChanged;
+
     PlayedCard DealersFirstPlayedCard { get; }
     PlayedCard DealersSecondPlayedCard { get; }
     ImmutableDictionary<EPlayers, ERoundResult> PlayerResults { get; }

@@ -26,6 +26,12 @@ namespace BlackjackGameLibrary.Game.Round.Commands
         {
           EPlayers player = playerRoundState.Key;
           int playerCardsSum = _playersSumOfCards[player];
+
+          if (dealerCardsSum > 21)
+          {
+            _playerResults[player] = ERoundResult.PlayerWins;
+          }
+
           if (playerCardsSum <= 21)
           {
             if (dealerCardsSum > playerCardsSum)
@@ -48,11 +54,6 @@ namespace BlackjackGameLibrary.Game.Round.Commands
             throw new InvalidOperationException(
               "Player cannot have sum of cards larger than 21 at this stage! If player has cards which have the sum larger than 21, the player loses the round without making the stand call!");
           }
-        }
-
-        else
-        {
-          throw new InvalidOperationException("Player round result is computed ONLY if player is NOT the dealer and if player has made the stand call!");
         }
       }
     }

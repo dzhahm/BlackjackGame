@@ -26,7 +26,7 @@ namespace BlackjackGameLibrary.Game.Round.Commands
         switch (call)
         {
           case ERoundCalls.Hit:
-            GivePlayerAdditionalCard(player);
+            new GivePlayerAdditionalCardCommand(_cards, _playerCards).Execute(player);
             break;
           case ERoundCalls.Stand:
             _playerRoundStates[player] = EPlayerRoundState.Stand;

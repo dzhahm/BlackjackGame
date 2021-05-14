@@ -19,11 +19,11 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       #region FirstCard
 
       //Player one first card
-      cardsForRound.Add(new NumericalCard(7, ECardSuitTypes.Hearts));
+      cardsForRound.Add(new NumericalCard(8, ECardSuitTypes.Hearts));
       //Player two first card
       cardsForRound.Add(new FaceCard(ECardSuitTypes.Diamonds, ECardType.Jack));
       //Player three first card
-      cardsForRound.Add(new NumericalCard(2, ECardSuitTypes.Diamonds));
+      cardsForRound.Add(new NumericalCard(6, ECardSuitTypes.Diamonds));
       //Dealers first card
       cardsForRound.Add(new NumericalCard(5, ECardSuitTypes.Clubs));
 
@@ -47,12 +47,15 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       //Player three third card
       cardsForRound.Add(new NumericalCard(9, ECardSuitTypes.Diamonds));
 
+      //Dealer third card
+      cardsForRound.Add(new NumericalCard(3, ECardSuitTypes.Spades));
+
       #endregion
 
-      //Player one's cards : Hearts 7, Queens of Spades => Sum is 17
+      //Player one's cards : Hearts 8, Queens of Spades => Sum is 18
       //Player two's cards : Jack of Diamonds, Jack of Hearts => Sum is 20
-      //Player three's cards : Diamonds 2, Spades 4, Diamonds 9 => Sum is 15
-      //Dealers' cards : Clubs 5, Clubs 9 => Sum is 14
+      //Player three's cards : Diamonds 6, Spades 4, Diamonds 9 => Sum is 19
+      //Dealers' cards : Clubs 5, Clubs 9, Spades 3 => Sum is 17
 
       return cardsForRound;
     }
@@ -81,7 +84,7 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
       gameRound.FinalizeRoundResults();
 
       //Assert
-      if (gameRound.PlayersSumOfCards[EPlayers.Player1] != 17)
+      if (gameRound.PlayersSumOfCards[EPlayers.Player1] != 18)
       {
         Assert.Fail();
       }
@@ -91,12 +94,12 @@ namespace BlackjackGameLibrary.UnitTests.Game.GameRound
         Assert.Fail();
       }
 
-      if (gameRound.PlayersSumOfCards[EPlayers.Player3] != 15)
+      if (gameRound.PlayersSumOfCards[EPlayers.Player3] != 19)
       {
         Assert.Fail();
       }
 
-      if (gameRound.PlayersSumOfCards[EPlayers.Dealer] != 14)
+      if (gameRound.PlayersSumOfCards[EPlayers.Dealer] != 17)
       {
         Assert.Fail();
       }

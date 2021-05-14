@@ -19,5 +19,10 @@ namespace BlackjackGameUI.View
     {
       ((PlayerViewModel) DataContext).OnHitCall();
     }
+
+    private void StandButton_OnClick(object sender, RoutedEventArgs e)
+    {
+      ((PlayerViewModel) DataContext).OnStandCall();
+    }
   }
 }
