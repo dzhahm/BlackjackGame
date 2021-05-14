@@ -1,7 +1,6 @@
 ﻿using BlackjackGameLibrary.Game;
 using BlackjackGameLibrary.PlayingCards;
 using BlackjackGameUI.Annotations;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,7 +8,7 @@ using System.Windows.Media;
 
 namespace BlackjackGameUI.ViewModel
 {
-  public class PlayerViewModel : INotifyPropertyChanged
+  public class DealerViewModel : INotifyPropertyChanged
   {
     private readonly PlayerCardsViewModel _playerCardsViewModel;
 
@@ -63,55 +62,26 @@ namespace BlackjackGameUI.ViewModel
 
     private string _cardSum;
 
-    public bool IsHitButtonEnabled
+
+    public DealerViewModel(PlayerCardsViewModel playerCardsViewModel)
     {
-      get => _isHitButtonEnabled;
-      set
-      {
-        _isHitButtonEnabled = value;
-        OnPropertyChanged(nameof(IsHitButtonEnabled));
-      }
-    }
-
-    private bool _isHitButtonEnabled;
-
-
-    public bool IsStandButtonEnabled
-    {
-      get => _isStandButtonEnabled;
-      set
-      {
-        _isStandButtonEnabled = value;
-        OnPropertyChanged(nameof(IsStandButtonEnabled));
-      }
-    }
-
-    private bool _isStandButtonEnabled;
-
-    public void PlayerExceededTwentyOne()
-    {
-      IsHitButtonEnabled = false;
-      IsStandButtonEnabled = false;
-      CardSumBackgroundColor = Brushes.LightCoral;
-      CardSum = $"{CardSum} - Player loses the round";
-    }
-
-    public event EventHandler<EventArgs> PlayerPressedHitButton;
-
-    public event EventHandler<EventArgs> PlayerPressedStandButton;
-
-    public PlayerViewModel(PlayerCardsViewModel playerCardsViewModel)
-    {
-      _isHitButtonEnabled = false;
-      _isStandButtonEnabled = false;
       _playerCardsViewModel = playerCardsViewModel;
       _playerCards = new List<Card>();
-      _playerCardsViewModel.UpdateCards(_playerCards);
-      _cardSumBackgroundColor = Brushes.LightGreen;
-      _cardSum = "Sum: ";
     }
 
-    public void SetPlayerCards(List<Card> cards)
+    public void AddDealersFistCard(Card card)
+    {
+      _playerCards.Add(card);
+      _playerCardsViewModel.UpdateCards(_playerCards);
+    }
+
+    public void AddDealersSecondCard(Card card)
+    {
+      _playerCards.Add(card);
+      _playerCardsViewModel.UpdateCards(_playerCards);
+    }
+
+    public void UpdateDealersCards(List<Card> cards)
     {
       _playerCards.Clear();
       foreach (Card card in cards)
@@ -120,22 +90,6 @@ namespace BlackjackGameUI.ViewModel
       }
 
       _playerCardsViewModel.UpdateCards(cards);
-    }
-
-    public void ClearPlayerCards()
-    {
-      _playerCards.Clear();
-      _playerCardsViewModel.ClearCardImages();
-    }
-
-    public void OnHitCall()
-    {
-      PlayerPressedHitButton?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void OnStandCall()
-    {
-      PlayerPressedStandButton?.Invoke(this, EventArgs.Empty);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

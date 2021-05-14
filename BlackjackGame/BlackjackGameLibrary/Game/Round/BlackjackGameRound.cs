@@ -19,8 +19,18 @@ namespace BlackjackGameLibrary.Game.Round
 
     /// <summary>
     /// State of the round. It changes according to the players' calls. 
-    /// </summary>
-    public ERoundState RoundState => _roundState;
+    /// </summary>RoundState
+    public ERoundState RoundState
+    {
+      get => _roundState;
+      set
+      {
+        _roundState = value;
+        RoundStateChanged?.Invoke(this, new EventArgs());
+      }
+    }
+
+    public event EventHandler RoundStateChanged;
 
     private ERoundState _roundState;
 
@@ -80,11 +90,11 @@ namespace BlackjackGameLibrary.Game.Round
     public void DealCards()
     {
       //First deal round
-      _roundState = ERoundState.CardDeal;
+      RoundState = ERoundState.CardDeal;
       DealForAllPlayers(2);
       DealersFirstPlayedCard = new PlayedCard(_playerCards[EPlayers.Dealer].First(), true);
       DealersSecondPlayedCard = new PlayedCard(_playerCards[EPlayers.Dealer].Last(), false);
-      _roundState = ERoundState.WaitForCalls;
+      RoundState = ERoundState.WaitForCalls;
     }
 
     /// <summary>
@@ -97,8 +107,8 @@ namespace BlackjackGameLibrary.Game.Round
       new ProcessPlayerCallCommand(_cards, _playerCards, _playerRoundStates).Execute(player, call);
       new SumCardValuesForPlayerCommand(_playerCards, _playersSumOfCards).Execute(player);
       new UpdatePlayerRoundResultCommand(_playersSumOfCards, _playerRoundStates, _playerResults).Execute(player);
-      new UpdateRoundStateAfterPlayerCallCommand(_playerRoundStates).Execute(out _roundState);
-      new UpdateDealersSecondCardStateAfterPlayerCallCommand(_roundState, DealersSecondPlayedCard).Execute();
+      RoundState = new UpdateRoundStateAfterPlayerCallCommand(_playerRoundStates).Execute();
+      new UpdateDealersSecondCardStateAfterPlayerCallCommand(RoundState, DealersSecondPlayedCard).Execute();
     }
 
     private void InitRound()
@@ -108,7 +118,7 @@ namespace BlackjackGameLibrary.Game.Round
       _playersSumOfCards = new Dictionary<EPlayers, int>();
       _playerResults = new Dictionary<EPlayers, ERoundResult>();
       new InitRoundCommand(_playerRoundStates, _playerResults, _playerCards, _playersSumOfCards).Execute(_numberOfPlayers);
-      _roundState = ERoundState.Initialized;
+      RoundState = ERoundState.Initialized;
     }
 
     private void DealForAllPlayers(int numberOfCardSets)
@@ -128,9 +138,16 @@ namespace BlackjackGameLibrary.Game.Round
     /// </summary>
     public void FinalizeRoundResults()
     {
+      SumCardValuesForPlayerCommand sumCardValuesForPlayerCommand = new(_playerCards, _playersSumOfCards);
       if (_roundState == ERoundState.AllPlayersStand || _roundState == ERoundState.AtLeastOnePlayerStandAndOtherPlayersExceedTwentyOne)
       {
-        new SumCardValuesForPlayerCommand(_playerCards, _playersSumOfCards).Execute(EPlayers.Dealer);
+        sumCardValuesForPlayerCommand.Execute(EPlayers.Dealer);
+        while (_playersSumOfCards[EPlayers.Dealer] < 17)
+        {
+          new GivePlayerAdditionalCardCommand(_cards, _playerCards).Execute(EPlayers.Dealer);
+          sumCardValuesForPlayerCommand.Execute(EPlayers.Dealer);
+        }
+
         new FinalizeRoundResultsCommand(_playerRoundStates, _playersSumOfCards, _playerResults).Execute();
       }
       else
