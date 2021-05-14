@@ -1,5 +1,4 @@
-﻿using BlackjackGameLibrary.Game.Round.Commands;
-using BlackjackGameLibrary.PlayingCards;
+﻿using BlackjackGameLibrary.PlayingCards;
 using BlackjackGameUI.Annotations;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 
 namespace BlackjackGameUI.ViewModel
@@ -25,7 +23,6 @@ namespace BlackjackGameUI.ViewModel
     }
 
     private Image _firstCardToBeDisplayed;
-
 
     public Image SecondCardToBeDisplayed
     {

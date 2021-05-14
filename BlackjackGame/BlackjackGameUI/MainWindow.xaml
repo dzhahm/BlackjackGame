@@ -8,24 +8,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1200">
 		<Grid>
-				<Grid Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200">
-						<Grid Height="80" HorizontalAlignment="Center" VerticalAlignment="Top">
-								<Label HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Montserrat">Dealer</Label>
-						</Grid>
-					<uc:PlayerCardsView Margin="0,80,0,0"/>
-				</Grid>
-				<Grid Margin="0,400,0,0">
-						<Grid Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="360" Width="360">
-								<uc:PlayerView></uc:PlayerView>
-						</Grid>
-
-						<Grid Margin="420,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="360" Width="360">
-							<uc:PlayerView></uc:PlayerView>
-						</Grid>
-
-						<Grid Margin="830,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="360" Width="360">
-							<uc:PlayerView></uc:PlayerView>
-						</Grid>
-				</Grid>
+				<uc:BlackjackGameRoundView x:Name="RoundView"></uc:BlackjackGameRoundView>
 		</Grid>
 </Window>

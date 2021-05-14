@@ -114,10 +114,11 @@ namespace BlackjackGameLibrary.Game.Round
     private void DealForAllPlayers(int numberOfCardSets)
     {
       new DealCardsForAllPlayersCommand(_cards, _playerCards, _numberOfPlayers).Execute(numberOfCardSets);
-
-      foreach (KeyValuePair<EPlayers, EPlayerRoundState> playerRoundState in _playerRoundStates)
+      SumCardValuesForPlayerCommand sumCommand = new SumCardValuesForPlayerCommand(_playerCards, _playersSumOfCards);
+      foreach (EPlayers player in _playerRoundStates.Keys)
       {
-        _playerRoundStates[playerRoundState.Key] = EPlayerRoundState.CanMakeHitCall;
+        _playerRoundStates[player] = EPlayerRoundState.CanMakeHitCall;
+        sumCommand.Execute(player);
       }
     }
 

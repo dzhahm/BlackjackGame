@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlackjackGameLibrary.PlayingCards;
+using BlackjackGameUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,14 @@ namespace BlackjackGameUI
     public MainWindow()
     {
       InitializeComponent();
+
+      CardDeck cardDeck = new CardDeck();
+      cardDeck.Shuffle();
+      List<Card> cards = new(cardDeck.Cards);
+      int numberOfPlayers = 3;
+
+      BlackjackGameRoundViewModel round = (BlackjackGameRoundViewModel) RoundView.DataContext;
+      round.StartNewRound(cards, numberOfPlayers);
     }
   }
 }
